@@ -33,7 +33,7 @@ public class Game {
 	}
 
 	private void initPlayers(String playerName) {
-		playerMembers.add(new Player(playerName));
+		playerMembers.add(new Player(playerName, questions));
 	}
 
 	public int howManyPlayers() {
@@ -80,13 +80,8 @@ public class Game {
 	}
 
 	private void movePlayerAndAskQuestion(int roll) {
-		currentPlaceAdd(roll);
-
-		System.out.println(getCurrentplayer()
-                + "'s new location is "
-                + getPlaceCurrent());
-		System.out.println("The category is " + currentCategory());
-		askQuestion();
+    	Player player = getCurrentPlayer();
+    	player.movePlayerAndAskQuestion(roll);
 	}
 
 	private void currentPlaceAdd(int roll) {
@@ -100,8 +95,8 @@ public class Game {
 	}
 
 	private void askQuestion() {
-		Object obj = getQuestionsByPlace();
-		System.out.println(obj);
+    	Player player = getCurrentPlayer();
+    	player.askQuestion();
 	}
 
 	private Object getQuestionsByPlace() {
