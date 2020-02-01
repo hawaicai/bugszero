@@ -11,7 +11,7 @@ public class Game {
 	public static final int PLAYER_NUMBERS = 6;
 	ArrayList players = new ArrayList();
     int[] places = new int[PLAYER_NUMBERS];
-    Player[] playerMembers = new Player[PLAYER_NUMBERS];
+	ArrayList<Player> playerMembers = new ArrayList<Player>();
     int[] purses  = new int[PLAYER_NUMBERS];
     boolean[] inPenaltyBox  = new boolean[PLAYER_NUMBERS];
 
@@ -43,14 +43,19 @@ public class Game {
 	public boolean add(String playerName) {
 
 
-	    players.add(playerName);
-	    places[howManyPlayers()] = 0;
+		initPlayers(playerName);
+		places[howManyPlayers()] = 0;
 	    purses[howManyPlayers()] = 0;
 	    inPenaltyBox[howManyPlayers()] = false;
 
 	    System.out.println(playerName + " was added");
 	    System.out.println("They are player number " + players.size());
 		return true;
+	}
+
+	private void initPlayers(String playerName) {
+		players.add(playerName);
+		playerMembers.add(new Player(playerName));
 	}
 
 	public int howManyPlayers() {
