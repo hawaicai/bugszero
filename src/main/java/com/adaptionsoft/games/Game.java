@@ -11,21 +11,12 @@ public class Game {
 	public static final int PLAYER_NUMBERS = 6;
 
 	ArrayList<Player> playerMembers = new ArrayList<Player>();
-
-    LinkedList popQuestions = new LinkedList();
-    LinkedList scienceQuestions = new LinkedList();
-    LinkedList sportsQuestions = new LinkedList();
-    LinkedList rockQuestions = new LinkedList();
+	Questions questions = new Questions();
 
     int currentPlayer = 0;
 
     public Game(){
-    	for (int i = 0; i < 50; i++) {
-			popQuestions.addLast("Pop Question " + i);
-			scienceQuestions.addLast(("Science Question " + i));
-			sportsQuestions.addLast(("Sports Question " + i));
-			rockQuestions.addLast(createRockQuestion(i));
-    	}
+    	questions.init();
     }
 
 	public String createRockQuestion(int index){
@@ -113,14 +104,13 @@ public class Game {
 	}
 
 	private void askQuestion() {
-		if (currentCategory() == POP)
-			System.out.println(popQuestions.removeFirst());
-		if (currentCategory() == SCIENCE)
-			System.out.println(scienceQuestions.removeFirst());
-		if (currentCategory() == SPORTS)
-			System.out.println(sportsQuestions.removeFirst());
-		if (currentCategory() == ROCK)
-			System.out.println(rockQuestions.removeFirst());
+		Object obj = getQuestionsByPlace();
+		System.out.println(obj);
+	}
+
+	private Object getQuestionsByPlace() {
+		Player player = getCurrentPlayer();
+		return questions.getQuestionsByPlace(player.getPlace());
 	}
 
 
