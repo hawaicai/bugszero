@@ -59,21 +59,21 @@ public class Game {
 		System.out.println(players.get(currentPlayer) + " is the current player");
 		System.out.println("They have rolled a " + roll);
 
-		if (inPenaltyBox[currentPlayer]) {
-			if (roll % 2 != 0) {
-				isGettingOutOfPenaltyBox = true;
-
-				System.out.println(players.get(currentPlayer) + " is getting out of the penalty box");
-				movePlayerAndAskQuestion(roll);
-			} else {
-				System.out.println(players.get(currentPlayer) + " is not getting out of the penalty box");
-				isGettingOutOfPenaltyBox = false;
-				}
-
-		} else {
-
+		if (!inPenaltyBox[currentPlayer]) {
 			movePlayerAndAskQuestion(roll);
+			return;
 		}
+
+		if (roll % 2 == 0) {
+			System.out.println(players.get(currentPlayer) + " is not getting out of the penalty box");
+			isGettingOutOfPenaltyBox = false;
+			return;
+		}
+
+		isGettingOutOfPenaltyBox = true;
+		System.out.println(players.get(currentPlayer) + " is getting out of the penalty box");
+		movePlayerAndAskQuestion(roll);
+		return;
 
 	}
 
@@ -129,29 +129,7 @@ public class Game {
 	}
 
 	public boolean wasCorrectlyAnswered() {
-		if (inPenaltyBox[currentPlayer]){
-			if (isGettingOutOfPenaltyBox) {
-				System.out.println("Answer was correct!!!!");
-				currentPlayer++;
-				if (currentPlayer == players.size()) currentPlayer = 0;
-				purses[currentPlayer]++;
-				System.out.println(players.get(currentPlayer)
-						+ " now has "
-						+ purses[currentPlayer]
-						+ " Gold Coins.");
-
-				boolean winner = didPlayerWin();
-
-				return winner;
-			} else {
-				currentPlayer++;
-				if (currentPlayer == players.size()) currentPlayer = 0;
-				return true;
-			}
-
-
-
-		} else {
+		if (!inPenaltyBox[currentPlayer]) {
 
 			System.out.println("Answer was corrent!!!!");
 			purses[currentPlayer]++;
@@ -166,6 +144,25 @@ public class Game {
 
 			return winner;
 		}
+
+		if (!isGettingOutOfPenaltyBox) {
+			currentPlayer++;
+			if (currentPlayer == players.size()) currentPlayer = 0;
+			return true;
+		}
+
+		System.out.println("Answer was correct!!!!");
+		currentPlayer++;
+		if (currentPlayer == players.size()) currentPlayer = 0;
+		purses[currentPlayer]++;
+		System.out.println(players.get(currentPlayer)
+				+ " now has "
+				+ purses[currentPlayer]
+				+ " Gold Coins.");
+
+		boolean winner = didPlayerWin();
+
+		return winner;
 	}
 
 	public boolean wrongAnswer(){
