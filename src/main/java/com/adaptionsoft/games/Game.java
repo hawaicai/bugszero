@@ -10,7 +10,6 @@ public class Game {
 	public static final String ROCK = "Rock";
 	public static final int PLAYER_NUMBERS = 6;
 
-    int[] places = new int[PLAYER_NUMBERS];
 	ArrayList<Player> playerMembers = new ArrayList<Player>();
     int[] purses  = new int[PLAYER_NUMBERS];
     boolean[] inPenaltyBox  = new boolean[PLAYER_NUMBERS];
@@ -44,7 +43,6 @@ public class Game {
 
 
 		initPlayers(playerName);
-		places[howManyPlayers()] = 0;
 	    purses[howManyPlayers()] = 0;
 	    inPenaltyBox[howManyPlayers()] = false;
 
@@ -103,7 +101,7 @@ public class Game {
 	}
 
 	private void movePlayerAndAskQuestion(int roll) {
-		CurrentPlaceAdd(roll);
+		currentPlaceAdd(roll);
 
 		System.out.println(getCurrentplayer()
                 + "'s new location is "
@@ -112,15 +110,22 @@ public class Game {
 		askQuestion();
 	}
 
-	private void CurrentPlaceAdd(int roll) {
-		places[currentPlayer] = getPlaceCurrent() + roll;
-		if (getPlaceCurrent() > 11) {
-			places[currentPlayer] = getPlaceCurrent() - 12;
-		}
+	private void currentPlaceAdd(int roll) {
+		currentPlaceMemberAdd(roll);
+	}
+
+	private void currentPlaceMemberAdd(int roll) {
+    	Player player = playerMembers.get(currentPlayer);
+		player.addRoll(roll);
 	}
 
 	private int getPlaceCurrent() {
-		return places[currentPlayer];
+    	return getPlaceMemberCurrent();
+	}
+
+	private int getPlaceMemberCurrent() {
+		Player player = playerMembers.get(currentPlayer);
+		return player.getPlace();
 	}
 
 	private void askQuestion() {
@@ -145,22 +150,19 @@ public class Game {
 	private boolean currentPlayerIsSPORTS() {
 		if (getPlaceCurrent() == 2) return true;
 		if (getPlaceCurrent() == PLAYER_NUMBERS) return true;
-		if (getPlaceCurrent() == 10) return true;
-		return false;
+		return getPlaceCurrent() == 10;
 	}
 
 	private boolean currentPlayerIsSCIENCE() {
 		if (getPlaceCurrent() == 1) return true;
 		if (getPlaceCurrent() == 5) return true;
-		if (getPlaceCurrent() == 9) return true;
-		return false;
+		return getPlaceCurrent() == 9;
 	}
 
 	private boolean currentPlayerIsPOP() {
 		if (getPlaceCurrent() == 0) return true;
 		if (getPlaceCurrent() == 4) return true;
-		if (getPlaceCurrent() == 8) return true;
-		return false;
+		return getPlaceCurrent() == 8;
 	}
 
 	public boolean wasCorrectlyAnswered() {
