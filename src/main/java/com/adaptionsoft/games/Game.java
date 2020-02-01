@@ -74,12 +74,13 @@ public class Game {
 		System.out.println(players.get(currentPlayer) + " is getting out of the penalty box");
 		movePlayerAndAskQuestion(roll);
 		return;
-
 	}
 
 	private void movePlayerAndAskQuestion(int roll) {
 		places[currentPlayer] = places[currentPlayer] + roll;
-		if (places[currentPlayer] > 11) places[currentPlayer] = places[currentPlayer] - 12;
+		if (places[currentPlayer] > 11) {
+			places[currentPlayer] = places[currentPlayer] - 12;
+		}
 
 		System.out.println(players.get(currentPlayer)
                 + "'s new location is "
@@ -131,29 +132,26 @@ public class Game {
 	public boolean wasCorrectlyAnswered() {
 		if (!inPenaltyBox[currentPlayer]) {
 
-			System.out.println("Answer was corrent!!!!");
-			purses[currentPlayer]++;
-			System.out.println(players.get(currentPlayer)
-					+ " now has "
-					+ purses[currentPlayer]
-					+ " Gold Coins.");
-
-			boolean winner = didPlayerWin();
-			currentPlayer++;
-			if (currentPlayer == players.size()) currentPlayer = 0;
-
-			return winner;
+			return doSomeWhenCorrectlyanswered();
 		}
 
 		if (!isGettingOutOfPenaltyBox) {
 			currentPlayer++;
-			if (currentPlayer == players.size()) currentPlayer = 0;
+			if (currentPlayer == players.size()){
+				currentPlayer = 0;
+			}
 			return true;
 		}
 
+		return doSome();
+	}
+
+	private boolean doSome() {
 		System.out.println("Answer was correct!!!!");
 		currentPlayer++;
-		if (currentPlayer == players.size()) currentPlayer = 0;
+		if (currentPlayer == players.size()) {
+			currentPlayer = 0;
+		}
 		purses[currentPlayer]++;
 		System.out.println(players.get(currentPlayer)
 				+ " now has "
@@ -165,13 +163,32 @@ public class Game {
 		return winner;
 	}
 
+	private boolean doSomeWhenCorrectlyanswered() {
+		System.out.println("Answer was corrent!!!!");
+		purses[currentPlayer]++;
+		System.out.println(players.get(currentPlayer)
+				+ " now has "
+				+ purses[currentPlayer]
+				+ " Gold Coins.");
+
+		boolean winner = didPlayerWin();
+		currentPlayer++;
+		if (currentPlayer == players.size()){
+			currentPlayer = 0;
+		}
+
+		return winner;
+	}
+
 	public boolean wrongAnswer(){
 		System.out.println("Question was incorrectly answered");
 		System.out.println(players.get(currentPlayer)+ " was sent to the penalty box");
 		inPenaltyBox[currentPlayer] = true;
 
 		currentPlayer++;
-		if (currentPlayer == players.size()) currentPlayer = 0;
+		if (currentPlayer == players.size()) {
+			currentPlayer = 0;
+		}
 		return true;
 	}
 
