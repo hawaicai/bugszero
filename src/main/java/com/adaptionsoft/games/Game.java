@@ -93,16 +93,20 @@ public class Game {
 	}
 
 	private void movePlayerAndAskQuestion(int roll) {
-		places[currentPlayer] = places[currentPlayer] + roll;
-		if (places[currentPlayer] > 11) {
-			places[currentPlayer] = places[currentPlayer] - 12;
+		places[currentPlayer] = getPlaceCurrent() + roll;
+		if (getPlaceCurrent() > 11) {
+			places[currentPlayer] = getPlaceCurrent() - 12;
 		}
 
 		System.out.println(getCurrentplayer()
                 + "'s new location is "
-                + places[currentPlayer]);
+                + getPlaceCurrent());
 		System.out.println("The category is " + currentCategory());
 		askQuestion();
+	}
+
+	private int getPlaceCurrent() {
+		return places[currentPlayer];
 	}
 
 	private void askQuestion() {
@@ -125,23 +129,23 @@ public class Game {
 	}
 
 	private boolean currentPlayerIsSPORTS() {
-		if (places[currentPlayer] == 2) return true;
-		if (places[currentPlayer] == 6) return true;
-		if (places[currentPlayer] == 10) return true;
+		if (getPlaceCurrent() == 2) return true;
+		if (getPlaceCurrent() == 6) return true;
+		if (getPlaceCurrent() == 10) return true;
 		return false;
 	}
 
 	private boolean currentPlayerIsSCIENCE() {
-		if (places[currentPlayer] == 1) return true;
-		if (places[currentPlayer] == 5) return true;
-		if (places[currentPlayer] == 9) return true;
+		if (getPlaceCurrent() == 1) return true;
+		if (getPlaceCurrent() == 5) return true;
+		if (getPlaceCurrent() == 9) return true;
 		return false;
 	}
 
 	private boolean currentPlayerIsPOP() {
-		if (places[currentPlayer] == 0) return true;
-		if (places[currentPlayer] == 4) return true;
-		if (places[currentPlayer] == 8) return true;
+		if (getPlaceCurrent() == 0) return true;
+		if (getPlaceCurrent() == 4) return true;
+		if (getPlaceCurrent() == 8) return true;
 		return false;
 	}
 
