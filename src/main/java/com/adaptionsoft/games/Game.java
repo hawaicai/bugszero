@@ -49,15 +49,6 @@ public class Game {
 		return playerMembers.get(currentPlayer).getPlayerName();
 	}
 
-	private void setGettingOutOfpanaltyBox(boolean b) {
-		Player player = getCurrentPlayer();
-		player.setGettingOutOfPenaltyBox(b);
-	}
-
-	private boolean rollIsDermainder(int roll) {
-		return roll % 2 == 0;
-	}
-
 	private boolean isInPenaltyBox() {
     	Player player = getCurrentPlayer();
     	return player.isInPenaltyBox();
