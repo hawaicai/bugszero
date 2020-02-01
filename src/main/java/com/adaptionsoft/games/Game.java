@@ -64,16 +64,24 @@ public class Game {
 			return;
 		}
 
-		if (roll % 2 == 0) {
+		if (rollIsDermainder(roll)) {
 			System.out.println(players.get(currentPlayer) + " is not getting out of the penalty box");
-			isGettingOutOfPenaltyBox = false;
+			setGettingOutOfpanaltyBox(false);
 			return;
 		}
 
-		isGettingOutOfPenaltyBox = true;
+		setGettingOutOfpanaltyBox(true);
 		System.out.println(players.get(currentPlayer) + " is getting out of the penalty box");
 		movePlayerAndAskQuestion(roll);
 		return;
+	}
+
+	private void setGettingOutOfpanaltyBox(boolean b) {
+		isGettingOutOfPenaltyBox = b;
+	}
+
+	private boolean rollIsDermainder(int roll) {
+		return roll % 2 == 0;
 	}
 
 	private boolean isInPenaltyBox() {
@@ -138,12 +146,16 @@ public class Game {
 			return doSomeWhenCorrectlyanswered();
 		}
 
-		if (!isGettingOutOfPenaltyBox) {
+		if (!isGettingOutOfPenaltyBox()) {
 			currentPlayerAdd();
 			return true;
 		}
 
 		return doSome();
+	}
+
+	private boolean isGettingOutOfPenaltyBox() {
+		return isGettingOutOfPenaltyBox;
 	}
 
 	private void currentPlayerAdd() {
@@ -184,10 +196,14 @@ public class Game {
 	public boolean wrongAnswer(){
 		System.out.println("Question was incorrectly answered");
 		System.out.println(players.get(currentPlayer)+ " was sent to the penalty box");
-		inPenaltyBox[currentPlayer] = true;
+		setToPenaltyBox();
 
 		currentPlayerAdd();
 		return true;
+	}
+
+	private void setToPenaltyBox() {
+		inPenaltyBox[currentPlayer] = true;
 	}
 
 
