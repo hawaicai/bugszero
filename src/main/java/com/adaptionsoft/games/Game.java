@@ -11,7 +11,6 @@ public class Game {
 	public static final int PLAYER_NUMBERS = 6;
 
 	ArrayList<Player> playerMembers = new ArrayList<Player>();
-    int[] purses  = new int[PLAYER_NUMBERS];
     boolean[] inPenaltyBox  = new boolean[PLAYER_NUMBERS];
 
     LinkedList popQuestions = new LinkedList();
@@ -43,7 +42,6 @@ public class Game {
 
 
 		initPlayers(playerName);
-	    purses[howManyPlayers()] = 0;
 	    inPenaltyBox[howManyPlayers()] = false;
 
 	    System.out.println(playerName + " was added");
@@ -204,9 +202,12 @@ public class Game {
 	}
 
 	private void pursesAdd() {
-		purses[currentPlayer]++;
+		pursesPlayerAdd();
 	}
-
+	private void pursesPlayerAdd() {
+		Player player = playerMembers.get(currentPlayer);
+		player.Increasepurses();
+	}
 	private boolean doSomeWhenCorrectlyanswered() {
 		System.out.println("Answer was corrent!!!!");
 		pursesAdd();
@@ -222,7 +223,12 @@ public class Game {
 	}
 
 	private int getCurrentPurses() {
-		return purses[currentPlayer];
+    	return getPlayerPurses();
+	}
+
+	private int getPlayerPurses() {
+		Player player = playerMembers.get(currentPlayer);
+		return player.getPurses();
 	}
 
 	public boolean wrongAnswer(){

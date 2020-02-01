@@ -3,10 +3,12 @@ package com.adaptionsoft.games;
 public class Player {
     private final String name;
     private int places;
+    private int purses;
 
     public Player(String playerName) {
         this.name = playerName;
         this.places = 0;
+        this.purses = 0;
     }
 
     public void addRoll(int roll) {
@@ -22,5 +24,13 @@ public class Player {
 
     public int getPlace() {
         return this.places;
+    }
+
+    public void Increasepurses() {
+        this.purses++;
+    }
+
+    public int getPurses() {
+        return this.purses;
     }
 }
