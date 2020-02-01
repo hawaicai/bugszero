@@ -9,7 +9,7 @@ public class Game {
 	public static final String SPORTS = "Sports";
 	public static final String ROCK = "Rock";
 	public static final int PLAYER_NUMBERS = 6;
-	ArrayList players = new ArrayList();
+
     int[] places = new int[PLAYER_NUMBERS];
 	ArrayList<Player> playerMembers = new ArrayList<Player>();
     int[] purses  = new int[PLAYER_NUMBERS];
@@ -49,17 +49,16 @@ public class Game {
 	    inPenaltyBox[howManyPlayers()] = false;
 
 	    System.out.println(playerName + " was added");
-	    System.out.println("They are player number " + players.size());
+	    System.out.println("They are player number " + playerMembers.size());
 		return true;
 	}
 
 	private void initPlayers(String playerName) {
-		players.add(playerName);
 		playerMembers.add(new Player(playerName));
 	}
 
 	public int howManyPlayers() {
-		return players.size();
+		return playerMembers.size();
 	}
 
 	public void roll(int roll) {
@@ -84,7 +83,11 @@ public class Game {
 	}
 
 	private Object getCurrentplayer() {
-		return players.get(currentPlayer);
+    	return getCurrentplayerMember();
+	}
+
+	private Object getCurrentplayerMember() {
+		return playerMembers.get(currentPlayer).getPlayerName();
 	}
 
 	private void setGettingOutOfpanaltyBox(boolean b) {
@@ -179,7 +182,7 @@ public class Game {
 
 	private void currentPlayerAdd() {
 		currentPlayer++;
-		if (currentPlayer == players.size()) {
+		if (currentPlayer == playerMembers.size()) {
 			currentPlayer = 0;
 		}
 	}
