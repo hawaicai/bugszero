@@ -19,10 +19,6 @@ public class Game {
     	questions.init();
     }
 
-	public String createRockQuestion(int index){
-		return "Rock Question " + index;
-	}
-
 	public boolean isPlayable() {
 		return (howManyPlayers() >= 2);
 	}
@@ -113,30 +109,9 @@ public class Game {
 		return questions.getQuestionsByPlace(player.getPlace());
 	}
 
-
 	private String currentCategory() {
-		if (currentPlayerIsPOP()) return POP;
-		if (currentPlayerIsSCIENCE()) return SCIENCE;
-		if (currentPlayerIsSPORTS()) return SPORTS;
-		return ROCK;
-	}
-
-	private boolean currentPlayerIsSPORTS() {
-		if (getPlaceCurrent() == 2) return true;
-		if (getPlaceCurrent() == 6) return true;
-		return getPlaceCurrent() == 10;
-	}
-
-	private boolean currentPlayerIsSCIENCE() {
-		if (getPlaceCurrent() == 1) return true;
-		if (getPlaceCurrent() == 5) return true;
-		return getPlaceCurrent() == 9;
-	}
-
-	private boolean currentPlayerIsPOP() {
-		if (getPlaceCurrent() == 0) return true;
-		if (getPlaceCurrent() == 4) return true;
-		return getPlaceCurrent() == 8;
+    	Player player = getCurrentPlayer();
+    	return questions.currentCategory(player.getPlace());
 	}
 
 	public boolean wasCorrectlyAnswered() {

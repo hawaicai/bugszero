@@ -32,7 +32,7 @@ public class Questions {
             obj = rockQuestions.removeFirst();
         return obj;
     }
-    private String currentCategory(int place) {
+    public String currentCategory(int place) {
         if ((place % 4) == 0) return POP;
         if ((place % 4) == 1) return SCIENCE;
         if ((place % 4) == 2) return SPORTS;
