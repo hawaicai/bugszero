@@ -69,4 +69,28 @@ public class Player {
     public boolean isGettingOutOfPenaltyBox() {
         return this.isGettingOutOfPenaltyBox;
     }
+
+    public void roll(int roll) {
+        System.out.println(getPlayerName() + " is the current player");
+        System.out.println("They have rolled a " + roll);
+        if (!isInPenaltyBox()) {
+            movePlayerAndAskQuestion(roll);
+            return;
+        }
+
+        if (rollIsDermainder(roll)) {
+            System.out.println(getPlayerName() + " is not getting out of the penalty box");
+            setGettingOutOfPenaltyBox(false);
+            return;
+        }
+
+        setGettingOutOfPenaltyBox(true);
+        System.out.println(getPlayerName() + " is getting out of the penalty box");
+        movePlayerAndAskQuestion(roll);
+        return;
+    }
+
+    private boolean rollIsDermainder(int roll) {
+        return roll % 2 == 0;
+    }
 }

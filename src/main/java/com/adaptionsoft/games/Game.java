@@ -41,24 +41,8 @@ public class Game {
 	}
 
 	public void roll(int roll) {
-		System.out.println(getCurrentplayer() + " is the current player");
-		System.out.println("They have rolled a " + roll);
-
-		if (!isInPenaltyBox()) {
-			movePlayerAndAskQuestion(roll);
-			return;
-		}
-
-		if (rollIsDermainder(roll)) {
-			System.out.println(getCurrentplayer() + " is not getting out of the penalty box");
-			setGettingOutOfpanaltyBox(false);
-			return;
-		}
-
-		setGettingOutOfpanaltyBox(true);
-		System.out.println(getCurrentplayer() + " is getting out of the penalty box");
-		movePlayerAndAskQuestion(roll);
-		return;
+		Player player = getCurrentPlayer();
+		player.roll(roll);
 	}
 
 	private Object getCurrentplayer() {
@@ -77,36 +61,6 @@ public class Game {
 	private boolean isInPenaltyBox() {
     	Player player = getCurrentPlayer();
     	return player.isInPenaltyBox();
-	}
-
-	private void movePlayerAndAskQuestion(int roll) {
-    	Player player = getCurrentPlayer();
-    	player.movePlayerAndAskQuestion(roll);
-	}
-
-	private void currentPlaceAdd(int roll) {
-		Player player = getCurrentPlayer();
-		player.addRoll(roll);
-	}
-
-	private int getPlaceCurrent() {
-		Player player = getCurrentPlayer();
-		return player.getPlace();
-	}
-
-	private void askQuestion() {
-    	Player player = getCurrentPlayer();
-    	player.askQuestion();
-	}
-
-	private Object getQuestionsByPlace() {
-		Player player = getCurrentPlayer();
-		return questions.getQuestionsByPlace(player.getPlace());
-	}
-
-	private String currentCategory() {
-    	Player player = getCurrentPlayer();
-    	return questions.currentCategory(player.getPlace());
 	}
 
 	public boolean wasCorrectlyAnswered() {
@@ -153,8 +107,9 @@ public class Game {
 		player.Increasepurses();
 	}
 	private boolean doSomeWhenCorrectlyanswered() {
-		System.out.println("Answer was corrent!!!!");
 		pursesAdd();
+    	System.out.println("Answer was corrent!!!!");
+
 		System.out.println(getCurrentplayer()
 				+ " now has "
 				+ getCurrentPurses()
