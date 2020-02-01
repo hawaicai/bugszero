@@ -76,10 +76,6 @@ public class Game {
 	}
 
 	private Object getCurrentplayer() {
-    	return getCurrentplayerMember();
-	}
-
-	private Object getCurrentplayerMember() {
 		return playerMembers.get(currentPlayer).getPlayerName();
 	}
 
@@ -107,19 +103,11 @@ public class Game {
 	}
 
 	private void currentPlaceAdd(int roll) {
-		currentPlaceMemberAdd(roll);
-	}
-
-	private void currentPlaceMemberAdd(int roll) {
 		Player player = getCurrentPlayer();
 		player.addRoll(roll);
 	}
 
 	private int getPlaceCurrent() {
-    	return getPlaceMemberCurrent();
-	}
-
-	private int getPlaceMemberCurrent() {
 		Player player = getCurrentPlayer();
 		return player.getPlace();
 	}
@@ -145,7 +133,7 @@ public class Game {
 
 	private boolean currentPlayerIsSPORTS() {
 		if (getPlaceCurrent() == 2) return true;
-		if (getPlaceCurrent() == PLAYER_NUMBERS) return true;
+		if (getPlaceCurrent() == 6) return true;
 		return getPlaceCurrent() == 10;
 	}
 
@@ -200,9 +188,6 @@ public class Game {
 	}
 
 	private void pursesAdd() {
-		pursesPlayerAdd();
-	}
-	private void pursesPlayerAdd() {
 		Player player = getCurrentPlayer();
 		player.Increasepurses();
 	}
@@ -221,10 +206,6 @@ public class Game {
 	}
 
 	private int getCurrentPurses() {
-    	return getPlayerPurses();
-	}
-
-	private int getPlayerPurses() {
 		Player player = getCurrentPlayer();
 		return player.getPurses();
 	}
@@ -239,10 +220,6 @@ public class Game {
 	}
 
 	private void setToPenaltyBox() {
-		setPlayerToPenaltyBox();
-	}
-
-	private void setPlayerToPenaltyBox() {
 		Player player = getCurrentPlayer();
 		player.setToPenaltyBox();
 	}
