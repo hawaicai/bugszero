@@ -11,6 +11,7 @@ public class Game {
 	public static final int PLAYER_NUMBERS = 6;
 	ArrayList players = new ArrayList();
     int[] places = new int[PLAYER_NUMBERS];
+    Player[] playerMembers = new Player[PLAYER_NUMBERS];
     int[] purses  = new int[PLAYER_NUMBERS];
     boolean[] inPenaltyBox  = new boolean[PLAYER_NUMBERS];
 
