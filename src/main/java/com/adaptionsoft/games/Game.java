@@ -18,7 +18,6 @@ public class Game {
     LinkedList rockQuestions = new LinkedList();
 
     int currentPlayer = 0;
-    boolean isGettingOutOfPenaltyBox;
 
     public Game(){
     	for (int i = 0; i < 50; i++) {
@@ -80,7 +79,8 @@ public class Game {
 	}
 
 	private void setGettingOutOfpanaltyBox(boolean b) {
-		isGettingOutOfPenaltyBox = b;
+		Player player = getCurrentPlayer();
+		player.setGettingOutOfPenaltyBox(b);
 	}
 
 	private boolean rollIsDermainder(int roll) {
@@ -163,7 +163,8 @@ public class Game {
 	}
 
 	private boolean isGettingOutOfPenaltyBox() {
-		return isGettingOutOfPenaltyBox;
+		Player player = getCurrentPlayer();
+		return player.isGettingOutOfPenaltyBox();
 	}
 
 	private void currentPlayerAdd() {
