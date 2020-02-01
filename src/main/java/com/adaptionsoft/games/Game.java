@@ -11,7 +11,6 @@ public class Game {
 	public static final int PLAYER_NUMBERS = 6;
 
 	ArrayList<Player> playerMembers = new ArrayList<Player>();
-    boolean[] inPenaltyBox  = new boolean[PLAYER_NUMBERS];
 
     LinkedList popQuestions = new LinkedList();
     LinkedList scienceQuestions = new LinkedList();
@@ -42,8 +41,6 @@ public class Game {
 
 
 		initPlayers(playerName);
-	    inPenaltyBox[howManyPlayers()] = false;
-
 	    System.out.println(playerName + " was added");
 	    System.out.println("They are player number " + playerMembers.size());
 		return true;
@@ -95,7 +92,8 @@ public class Game {
 	}
 
 	private boolean isInPenaltyBox() {
-		return inPenaltyBox[currentPlayer];
+    	Player player = getCurrentPlayer();
+    	return player.isInPenaltyBox();
 	}
 
 	private void movePlayerAndAskQuestion(int roll) {
@@ -113,7 +111,7 @@ public class Game {
 	}
 
 	private void currentPlaceMemberAdd(int roll) {
-    	Player player = playerMembers.get(currentPlayer);
+		Player player = getCurrentPlayer();
 		player.addRoll(roll);
 	}
 
@@ -122,7 +120,7 @@ public class Game {
 	}
 
 	private int getPlaceMemberCurrent() {
-		Player player = playerMembers.get(currentPlayer);
+		Player player = getCurrentPlayer();
 		return player.getPlace();
 	}
 
@@ -205,7 +203,7 @@ public class Game {
 		pursesPlayerAdd();
 	}
 	private void pursesPlayerAdd() {
-		Player player = playerMembers.get(currentPlayer);
+		Player player = getCurrentPlayer();
 		player.Increasepurses();
 	}
 	private boolean doSomeWhenCorrectlyanswered() {
@@ -227,7 +225,7 @@ public class Game {
 	}
 
 	private int getPlayerPurses() {
-		Player player = playerMembers.get(currentPlayer);
+		Player player = getCurrentPlayer();
 		return player.getPurses();
 	}
 
@@ -241,7 +239,16 @@ public class Game {
 	}
 
 	private void setToPenaltyBox() {
-		inPenaltyBox[currentPlayer] = true;
+		setPlayerToPenaltyBox();
+	}
+
+	private void setPlayerToPenaltyBox() {
+		Player player = getCurrentPlayer();
+		player.setToPenaltyBox();
+	}
+
+	private Player getCurrentPlayer() {
+		return playerMembers.get(currentPlayer);
 	}
 
 

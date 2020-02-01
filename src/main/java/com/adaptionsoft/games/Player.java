@@ -4,11 +4,13 @@ public class Player {
     private final String name;
     private int places;
     private int purses;
+    private boolean inPenaltyBox;
 
     public Player(String playerName) {
         this.name = playerName;
         this.places = 0;
         this.purses = 0;
+        this.inPenaltyBox = false;
     }
 
     public void addRoll(int roll) {
@@ -32,5 +34,13 @@ public class Player {
 
     public int getPurses() {
         return this.purses;
+    }
+
+    public void setToPenaltyBox() {
+        this.inPenaltyBox = true;
+    }
+
+    public boolean isInPenaltyBox() {
+        return this.inPenaltyBox;
     }
 }
