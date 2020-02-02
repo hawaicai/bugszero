@@ -7,16 +7,12 @@ public class Player {
     private final Questions questions;
     private int places;
     private int purses;
-    private boolean inPenaltyBox;
-    private boolean isGettingOutOfPenaltyBox;
 
     public Player(String playerName, Questions questions) {
         this.name = playerName;
         this.questions = questions;
         this.places = 0;
         this.purses = 0;
-        this.inPenaltyBox = false;
-        this.isGettingOutOfPenaltyBox = true;
     }
 
     public void addRoll(int roll) {
@@ -38,6 +34,7 @@ public class Player {
                 + "'s new location is "
                 + getPlace());
         System.out.println("The category is " + questions.currentCategory(getPlace()));
+
         askQuestion();
     }
 
@@ -57,51 +54,11 @@ public class Player {
         return this.purses;
     }
 
-    public void setToPenaltyBox() {
-        this.inPenaltyBox = true;
-    }
-
-    public boolean isInPenaltyBox() {
-        return this.inPenaltyBox;
-    }
-
-    public void setGettingOutOfPenaltyBox(boolean b) {
-        this.isGettingOutOfPenaltyBox = b;
-    }
-
-    public boolean isGettingOutOfPenaltyBox() {
-        return this.isGettingOutOfPenaltyBox;
-    }
-
-    public void roll(int roll) {
-        System.out.println(getPlayerName() + " is the current player");
-        System.out.println("They have rolled a " + roll);
-        if (!isInPenaltyBox()) {
-            movePlayerAndAskQuestion(roll);
-            return;
-        }
-
-        if (rollIsDermainder(roll)) {
-            System.out.println(getPlayerName() + " is not getting out of the penalty box");
-            setGettingOutOfPenaltyBox(false);
-            return;
-        }
-
-        setGettingOutOfPenaltyBox(true);
-        System.out.println(getPlayerName() + " is getting out of the penalty box");
-        movePlayerAndAskQuestion(roll);
-        return;
-    }
-
-    private boolean rollIsDermainder(int roll) {
-        return roll % 2 == 0;
-    }
-
     public boolean didPlayerWin() {
         return !(getPurses() == PLAYER_NUMBERS);
     }
 
-    public boolean doSomeWhenCorrectlyAnswered() {
+    public boolean wasCorrectlyAnswered() {
         increasepurses();
         System.out.println("Answer was correct!!!!");
         System.out.println(getPlayerName()
@@ -113,23 +70,9 @@ public class Player {
         return winner;
     }
 
-    public boolean wasCorrectlyAnswered() {
-        if (!isInPenaltyBox()) {
-            return doSomeWhenCorrectlyAnswered();
-        }
-
-        if (!isGettingOutOfPenaltyBox()) {
-            return true;
-        }
-
-        return doSomeWhenCorrectlyAnswered();
-    }
-
     public boolean wrongAnswer(){
         System.out.println("Question was incorrectly answered");
         System.out.println(getPlayerName() + " was sent to the penalty box");
-        setToPenaltyBox();
         return true;
     }
-
 }

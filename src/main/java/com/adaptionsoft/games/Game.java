@@ -1,6 +1,8 @@
 package com.adaptionsoft.games;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class Game {
 	public static final String POP = "Pop";
@@ -10,6 +12,7 @@ public class Game {
 	public static final int PLAYER_NUMBERS = 6;
 
 	ArrayList<Player> playerMembers = new ArrayList<Player>();
+	Map<String, Player> penaltyBox = new HashMap<String, Player>();
 	Questions questions = new Questions();
 
     int currentPlayer = 0;
@@ -23,14 +26,10 @@ public class Game {
 	}
 
 	public boolean add(String playerName) {
-		initPlayers(playerName);
-	    System.out.println(playerName + " was added");
-	    System.out.println("They are player number " + playerMembers.size());
-		return true;
-	}
-
-	private void initPlayers(String playerName) {
 		playerMembers.add(new Player(playerName, questions));
+	    System.out.println(playerName + " was added");
+	    System.out.println("They are player number " + howManyPlayers());
+		return true;
 	}
 
 	public int howManyPlayers() {
@@ -39,12 +38,36 @@ public class Game {
 
 	public void roll(int roll) {
 		Player player = getCurrentPlayer();
-		player.roll(roll);
+		System.out.println(player.getPlayerName() + " is the current player");
+		System.out.println("They have rolled a " + roll);
+		Player penaltyPlayer = penaltyBox.get(player.getPlayerName());
+		if (penaltyPlayer == null) {
+			player.movePlayerAndAskQuestion(roll);
+			return;
+		}
+		if (rollIsDermainder(roll)) {
+			System.out.println(player.getPlayerName() + " is not getting out of the penalty box");
+			penaltyBox.put(player.getPlayerName(), player);
+		}
+		else{
+			System.out.println(player.getPlayerName() + " is getting out of the penalty box");
+			penaltyBox.remove(player.getPlayerName());
+			player.movePlayerAndAskQuestion(roll);
+		}
+		return;
+	}
+	private boolean rollIsDermainder(int roll) {
+		return roll % 2 == 0;
 	}
 
 	public boolean wasCorrectlyAnswered() {
     	Player player = getCurrentPlayer();
-		boolean winner = player.wasCorrectlyAnswered();
+		Player penaltyPlayer = penaltyBox.get(player.getPlayerName());
+    	boolean winner = true;
+    	if (null == penaltyPlayer)
+		{
+			winner = player.wasCorrectlyAnswered();
+		}
 		toNextPlayer();
 		return winner;
 	}
@@ -52,6 +75,7 @@ public class Game {
 	public boolean wrongAnswer(){
 		Player player = getCurrentPlayer();
 		player.wrongAnswer();
+		penaltyBox.put(player.getPlayerName(), player);
 		toNextPlayer();
 		return true;
 	}
