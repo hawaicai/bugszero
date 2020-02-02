@@ -12,7 +12,6 @@ public class Game {
 	public static final int PLAYER_NUMBERS = 6;
 
 	ArrayList<Player> playerMembers = new ArrayList<Player>();
-	Map<String, Player> penaltyBox = new HashMap<String, Player>();
 	Questions questions = new Questions();
 
     int currentPlayer = 0;
@@ -38,59 +37,21 @@ public class Game {
 
 	public void roll(int roll) {
 		Player player = getCurrentPlayer();
-		System.out.println(player.getPlayerName() + " is the current player");
-		System.out.println("They have rolled a " + roll);
-
-		if (isNotInPenaltyBox(player)) {
-			player.movePlayerAndAskQuestion(roll);
-			return;
-		}
-		if (rollIsDermainder(roll)) {
-			System.out.println(player.getPlayerName() + " is not getting out of the penalty box");
-		}
-		else{
-			System.out.println(player.getPlayerName() + " is getting out of the penalty box");
-			removeFromPenaltyBox(player);
-			player.movePlayerAndAskQuestion(roll);
-		}
-		return;
-	}
-
-	private boolean isNotInPenaltyBox(Player player) {
-    	return player.isInpenaltyBox() == false;
-	}
-
-	private void removeFromPenaltyBox(Player player) {
-		penaltyBox.remove(player.getPlayerName());
-		player.setOutOfPenaltyBox();
-	}
-
-	private boolean rollIsDermainder(int roll) {
-		return roll % 2 == 0;
+		player.roll(roll);
 	}
 
 	public boolean wasCorrectlyAnswered() {
     	Player player = getCurrentPlayer();
-    	boolean winner = true;
-    	if (isNotInPenaltyBox(player))
-		{
-			winner = player.doSomeWhenCorrectlyAnswered();
-		}
-		toNextPlayer();
+    	boolean winner = player.wasCorrectlyAnswered();
+    	toNextPlayer();
 		return winner;
 	}
 
 	public boolean wrongAnswer(){
 		Player player = getCurrentPlayer();
 		player.wrongAnswer();
-		setToPenaltyBox(player);
 		toNextPlayer();
 		return true;
-	}
-
-	private void setToPenaltyBox(Player player) {
-		penaltyBox.put(player.getPlayerName(), player);
-		player.setToPenaltyBox();
 	}
 
 	private void toNextPlayer() {

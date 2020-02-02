@@ -1,36 +1,26 @@
 package com.adaptionsoft.games;
 
-import java.util.LinkedList;
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.adaptionsoft.games.Game.*;
 
 public class Questions {
-    LinkedList popQuestions = new LinkedList();
-    LinkedList scienceQuestions = new LinkedList();
-    LinkedList sportsQuestions = new LinkedList();
-    LinkedList rockQuestions = new LinkedList();
+    Map<String, QuestionCategory> questionCategorys = new HashMap<>();
     public void init() {
-        for (int i = 0; i < 50; i++) {
-            popQuestions.addLast("Pop Question " + i);
-            scienceQuestions.addLast(("Science Question " + i));
-            sportsQuestions.addLast(("Sports Question " + i));
-            rockQuestions.addLast("Rock Question " + i);
-        }
+        questionCategorys.put(POP, new QuestionCategory(POP));
+        questionCategorys.put(SPORTS, new QuestionCategory(SPORTS));
+        questionCategorys.put(SCIENCE, new QuestionCategory(SCIENCE));
+        questionCategorys.put(ROCK, new QuestionCategory(ROCK));
     }
 
     public Object getQuestionsByPlace(int place) {
-        Object obj = null;
-        if (currentCategory(place) == POP)
+        QuestionCategory question = questionCategorys.get(currentCategory(place));
+        if (question != null)
         {
-            obj = popQuestions.removeFirst();
+            return question.getQuestion();
         }
-        if (currentCategory(place) == SCIENCE)
-            obj = scienceQuestions.removeFirst();
-        if (currentCategory(place) == SPORTS)
-            obj = sportsQuestions.removeFirst();
-        if (currentCategory(place) == ROCK)
-            obj = rockQuestions.removeFirst();
-        return obj;
+        return null;
     }
     public String currentCategory(int place) {
         if ((place % 4) == 0) return POP;

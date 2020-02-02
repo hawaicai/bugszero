@@ -24,4 +24,14 @@ public class GameTest {
         Approvals.verify(resultStream.toString());
 
 	}
+
+	@Test
+    public void testListOverMemory()
+    {
+        Questions questions = new Questions();
+        for (int i = 0; i < 1000; i++)
+        {
+            questions.getQuestionsByPlace(i);
+        }
+    }
 }

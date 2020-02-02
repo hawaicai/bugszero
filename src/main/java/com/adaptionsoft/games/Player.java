@@ -62,7 +62,7 @@ public class Player {
 
     public boolean wasCorrectlyAnswered() {
         boolean winner = true;
-        if (!this.inPenaltyBox)
+        if (!isInpenaltyBox())
         {
             winner = doSomeWhenCorrectlyAnswered();
         }
@@ -84,28 +84,38 @@ public class Player {
     public boolean wrongAnswer(){
         System.out.println("Question was incorrectly answered");
         System.out.println(getPlayerName() + " was sent to the penalty box");
-        this.inPenaltyBox = true;
+        setToPenaltyBox();
         return true;
     }
 
     public void roll(int roll) {
         System.out.println(getPlayerName() + " is the current player");
         System.out.println("They have rolled a " + roll);
+
         if (!isInpenaltyBox()) {
             movePlayerAndAskQuestion(roll);
             return;
         }
         if (rollIsDermainder(roll)) {
-            System.out.println(getPlayerName() + " is not getting out of the penalty box");
+            doSomeWhenRollIsDermainder();
         }
         else{
-            System.out.println(getPlayerName() + " is getting out of the penalty box");
-
-            movePlayerAndAskQuestion(roll);
+            doSomeWhenRollIsNotDermainder(roll);
         }
         return;
     }
-    private boolean rollIsDermainder(int roll) {
+
+    private void doSomeWhenRollIsNotDermainder(int roll) {
+        System.out.println(getPlayerName() + " is getting out of the penalty box");
+        setOutOfPenaltyBox();
+        movePlayerAndAskQuestion(roll);
+    }
+
+    private void doSomeWhenRollIsDermainder() {
+        System.out.println(getPlayerName() + " is not getting out of the penalty box");
+    }
+
+    public boolean rollIsDermainder(int roll) {
         return roll % 2 == 0;
     }
 
