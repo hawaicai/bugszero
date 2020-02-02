@@ -40,8 +40,8 @@ public class Game {
 		Player player = getCurrentPlayer();
 		System.out.println(player.getPlayerName() + " is the current player");
 		System.out.println("They have rolled a " + roll);
-//		Player penaltyPlayer = penaltyBox.get(player.getPlayerName());
-		if (penaltyBox.get(player.getPlayerName()) == null) {
+
+		if (isInPenaltyBox(player)) {
 			player.movePlayerAndAskQuestion(roll);
 			return;
 		}
@@ -56,6 +56,10 @@ public class Game {
 		return;
 	}
 
+	private boolean isInPenaltyBox(Player player) {
+		return penaltyBox.get(player.getPlayerName()) == null;
+	}
+
 	private void removeFromPenaltyBox(Player player) {
 		penaltyBox.remove(player.getPlayerName());
 	}
@@ -66,9 +70,8 @@ public class Game {
 
 	public boolean wasCorrectlyAnswered() {
     	Player player = getCurrentPlayer();
-		Player penaltyPlayer = penaltyBox.get(player.getPlayerName());
     	boolean winner = true;
-    	if (null == penaltyPlayer)
+    	if (isInPenaltyBox(player))
 		{
 			winner = player.doSomeWhenCorrectlyAnswered();
 		}
@@ -79,9 +82,13 @@ public class Game {
 	public boolean wrongAnswer(){
 		Player player = getCurrentPlayer();
 		player.wrongAnswer();
-		penaltyBox.put(player.getPlayerName(), player);
+		setToPenaltyBox(player);
 		toNextPlayer();
 		return true;
+	}
+
+	private void setToPenaltyBox(Player player) {
+		penaltyBox.put(player.getPlayerName(), player);
 	}
 
 	private void toNextPlayer() {
