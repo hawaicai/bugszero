@@ -23,8 +23,6 @@ public class Game {
 	}
 
 	public boolean add(String playerName) {
-
-
 		initPlayers(playerName);
 	    System.out.println(playerName + " was added");
 	    System.out.println("They are player number " + playerMembers.size());
@@ -40,73 +38,41 @@ public class Game {
 	}
 
 	public void roll(int roll) {
+    //	toNextPlayer();
 		Player player = getCurrentPlayer();
 		player.roll(roll);
 	}
 
-	private boolean isInPenaltyBox() {
-    	Player player = getCurrentPlayer();
-    	return player.isInPenaltyBox();
-	}
-
 	public boolean wasCorrectlyAnswered() {
-		if (!isInPenaltyBox()) {
-			return doSomeWhenCorrectlyanswered();
-		}
+    	Player player = getCurrentPlayer();
+		boolean winner = player.wasCorrectlyAnswered();
+		toNextPlayer();
+		return winner;
 
-		if (!isGettingOutOfPenaltyBox()) {
-			currentPlayerAdd();
-			return true;
-		}
-
-		return doSomeWhenCorrectlyanswered();
 	}
 
-	private boolean isGettingOutOfPenaltyBox() {
+	public boolean wrongAnswer(){
 		Player player = getCurrentPlayer();
-		return player.isGettingOutOfPenaltyBox();
+		player.wrongAnswer();
+		toNextPlayer();
+		return true;
 	}
 
-	private void currentPlayerAdd() {
+	private void toNextPlayer() {
 		currentPlayer++;
 		if (currentPlayer == playerMembers.size()) {
 			currentPlayer = 0;
 		}
 	}
 
-	private boolean doSome() {
-		currentPlayerAdd();
-		Player player = getCurrentPlayer();
-		boolean winner = player.doSomeWhenCorrectlyAnswered();
-		return winner;
-	}
-
 	public boolean doSomeTemp()
 	{
 		Player player = getCurrentPlayer();
 		boolean winner = player.doSomeWhenCorrectlyAnswered();
-		currentPlayerAdd();
+		toNextPlayer();
 		return winner;
 	}
 
-	private boolean doSomeWhenCorrectlyanswered() {
-		Player player = getCurrentPlayer();
-		boolean winner = player.doSomeWhenCorrectlyAnswered();
-		currentPlayerAdd();
-		return winner;
-	}
-
-	private int getCurrentPurses() {
-		Player player = getCurrentPlayer();
-		return player.getPurses();
-	}
-
-	public boolean wrongAnswer(){
-		Player player = getCurrentPlayer();
-		player.wrongAnswer();
-		currentPlayerAdd();
-		return true;
-	}
 
 	private Player getCurrentPlayer() {
 		return playerMembers.get(currentPlayer);

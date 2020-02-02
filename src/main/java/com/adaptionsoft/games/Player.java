@@ -16,6 +16,7 @@ public class Player {
         this.places = 0;
         this.purses = 0;
         this.inPenaltyBox = false;
+        this.isGettingOutOfPenaltyBox = true;
     }
 
     public void addRoll(int roll) {
@@ -111,19 +112,19 @@ public class Player {
         boolean winner = didPlayerWin();
         return winner;
     }
-/*
-    public boolean doSome() {
-        increasepurses();
-        System.out.println("Answer was correct!!!!");
-        System.out.println(getPlayerName()
-                + " now has "
-                + getPurses()
-                + " Gold Coins.");
 
-        boolean winner = didPlayerWin();
-        return winner;
+    public boolean wasCorrectlyAnswered() {
+        if (!isInPenaltyBox()) {
+            return doSomeWhenCorrectlyAnswered();
+        }
+
+        if (!isGettingOutOfPenaltyBox()) {
+            return true;
+        }
+
+        return doSomeWhenCorrectlyAnswered();
     }
-*/
+
     public boolean wrongAnswer(){
         System.out.println("Question was incorrectly answered");
         System.out.println(getPlayerName() + " was sent to the penalty box");
