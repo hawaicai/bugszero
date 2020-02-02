@@ -2,8 +2,6 @@ package com.adaptionsoft.games;
 
 import java.util.LinkedList;
 
-import static com.adaptionsoft.games.Game.POP;
-
 public class QuestionCategory {
     private final String category;
     private LinkedList questions = new LinkedList();
@@ -19,7 +17,13 @@ public class QuestionCategory {
 
     public Object getQuestion() {
         Object obj = questions.get(index);
-        index++;
+        updateIndex();
         return obj;
+    }
+
+    private void updateIndex() {
+        index++;
+        if (index == questions.size())
+            index = 0;
     }
 }

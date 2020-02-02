@@ -1,14 +1,9 @@
 package com.adaptionsoft.games;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 public class Game {
-	public static final String POP = "Pop";
-	public static final String SCIENCE = "Science";
-	public static final String SPORTS = "Sports";
-	public static final String ROCK = "Rock";
+
 	public static final int PLAYER_NUMBERS = 6;
 
 	ArrayList<Player> playerMembers = new ArrayList<Player>();
