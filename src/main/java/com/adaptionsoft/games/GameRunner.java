@@ -8,13 +8,13 @@ public class GameRunner {
 
 	private static boolean notAWinner;
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws Exception{
 		Random rand = new Random();
 		playGame(rand);
 
 	}
 
-	public static void playGame(Random rand) {
+	public static void playGame(Random rand) throws Exception{
 		Game aGame = new Game();
 
 		aGame.add("Chet");

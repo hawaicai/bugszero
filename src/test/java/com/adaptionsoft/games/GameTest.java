@@ -35,7 +35,7 @@ public class GameTest {
 	}*/
 
 	@Test
-    public void testListOverMemory()
+    public void testListOverMemory() throws Exception
     {
         Questions questions = new Questions();
         questions.init();
@@ -53,7 +53,7 @@ public class GameTest {
     }
 
     @Test
-    public void test_roll_1_place_1()
+    public void test_roll_1_place_1() throws Exception
     {
         String str = "bob is the current player\r\n" +
                 "They have rolled a 1\r\n" +
@@ -67,7 +67,7 @@ public class GameTest {
     }
 
     @Test
-    public void test_roll_1_place_1_and_correctanswer()
+    public void test_roll_1_place_1_and_correctanswer() throws Exception
     {
         game.roll(1);
         String str = "Answer was correct!!!!\r\n" +
@@ -79,7 +79,7 @@ public class GameTest {
     }
 
     @Test
-    public void test_roll_1_place_1_and_wronganswer()
+    public void test_roll_1_place_1_and_wronganswer() throws Exception
     {
         game.roll(1);
         String str = "Question was incorrectly answered\r\n" +
@@ -91,7 +91,7 @@ public class GameTest {
     }
 
     @Test
-    public void should_do_nothing_when_input_roll_2_given_inpenalty_box()
+    public void should_do_nothing_when_input_roll_2_given_inpenalty_box() throws Exception
     {
         game.roll(1);
         game.wrongAnswer();
@@ -109,7 +109,21 @@ public class GameTest {
     }
 
     @Test
-    public void should_do_nothing_when_input_roll_1_given_inpenalty_box()
+    public void test_roll_1_place_2() throws Exception
+    {
+        String str = "bob is the current player\r\n" +
+                "They have rolled a 2\r\n" +
+                "bob's new location is 2\r\n" +
+                "The category is Sports\r\n" +
+                "Sports Question 0\r\n";
+        ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(resultStream));
+        game.roll(2);
+        assertEquals(str, resultStream.toString());
+    }
+
+    @Test
+    public void should_do_nothing_when_input_roll_1_given_inpenalty_box() throws Exception
     {
         game.roll(1);
         game.wrongAnswer();
@@ -128,22 +142,8 @@ public class GameTest {
         game.roll(1);
         assertEquals(str, resultStream.toString());
     }
-
     @Test
-    public void test_roll_1_place_2()
-    {
-        String str = "bob is the current player\r\n" +
-                "They have rolled a 2\r\n" +
-                "bob's new location is 2\r\n" +
-                "The category is Sports\r\n" +
-                "Sports Question 0\r\n";
-        ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(resultStream));
-        game.roll(2);
-        assertEquals(str, resultStream.toString());
-    }
-    @Test
-    public void test_roll_1_place_3()
+    public void test_roll_1_place_3() throws Exception
     {
         String str = "bob is the current player\r\n" +
                 "They have rolled a 3\r\n" +
@@ -156,13 +156,27 @@ public class GameTest {
         assertEquals(str, resultStream.toString());
     }
     @Test
-    public void test_roll_1_place_4()
+    public void test_roll_1_place_0() throws Exception
+    {
+        String str = "bob is the current player\r\n" +
+                "They have rolled a 0\r\n" +
+                "bob's new location is 0\r\n" +
+                "The category is Pop\r\n" +
+                "Pop Question 0\r\n";
+        ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(resultStream));
+        game.roll(0);
+        assertEquals(str, resultStream.toString());
+    }
+
+    @Test
+    public void test_roll_1_place_4() throws Exception
     {
         String str = "bob is the current player\r\n" +
                 "They have rolled a 4\r\n" +
                 "bob's new location is 4\r\n" +
-                "The category is Pop\r\n" +
-                "Pop Question 0\r\n";
+                "The category is Blues\r\n" +
+                "Blues Question 0\r\n";
         ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
         System.setOut(new PrintStream(resultStream));
         game.roll(4);
@@ -170,18 +184,44 @@ public class GameTest {
     }
 
     @Test
-    public void test_roll_2_place_4()
+    public void test_roll_1_place_5() throws Exception
     {
-        game.roll(1);
-        game.wrongAnswer();
-        String str = "sue is the current player\r\n" +
-                "They have rolled a 4\r\n" +
-                "sue's new location is 4\r\n" +
+        String str = "bob is the current player\r\n" +
+                "They have rolled a 5\r\n" +
+                "bob's new location is 5\r\n" +
+                "The category is History\r\n" +
+                "History Question 0\r\n";
+        ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(resultStream));
+        game.roll(5);
+        assertEquals(str, resultStream.toString());
+    }
+    @Test
+    public void test_roll_1_place_6() throws Exception
+    {
+        String str = "bob is the current player\r\n" +
+                "They have rolled a 6\r\n" +
+                "bob's new location is 6\r\n" +
                 "The category is Pop\r\n" +
                 "Pop Question 0\r\n";
         ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
         System.setOut(new PrintStream(resultStream));
-        game.roll(4);
+        game.roll(6);
+        assertEquals(str, resultStream.toString());
+    }
+    @Test
+    public void test_roll_2_place_4() throws Exception
+    {
+        game.roll(1);
+        game.wrongAnswer();
+        String str = "sue is the current player\r\n" +
+                "They have rolled a 0\r\n" +
+                "sue's new location is 0\r\n" +
+                "The category is Pop\r\n" +
+                "Pop Question 0\r\n";
+        ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(resultStream));
+        game.roll(0);
         assertEquals(str, resultStream.toString());
     }
 

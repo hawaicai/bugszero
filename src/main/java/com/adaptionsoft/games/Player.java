@@ -1,5 +1,7 @@
 package com.adaptionsoft.games;
 
+import com.sun.org.apache.xml.internal.resolver.readers.ExtendedXMLCatalogReader;
+
 import static com.adaptionsoft.games.Game.PLAYER_NUMBERS;
 
 public class Player {
@@ -24,12 +26,12 @@ public class Player {
         }
     }
 
-    public void askQuestion() {
+    public void askQuestion() throws Exception {
         Object obj = questions.getQuestionsByPlace(getPlace());
         System.out.println(obj);
     }
 
-    public void movePlayerAndAskQuestion(int roll) {
+    public void movePlayerAndAskQuestion(int roll) throws Exception{
         addRoll(roll);
 
         System.out.println(getPlayerName()
@@ -88,7 +90,7 @@ public class Player {
         return true;
     }
 
-    public void roll(int roll) {
+    public void roll(int roll) throws Exception{
         System.out.println(getPlayerName() + " is the current player");
         System.out.println("They have rolled a " + roll);
 
@@ -105,7 +107,7 @@ public class Player {
         return;
     }
 
-    private void doSomeWhenRollIsNotDermainder(int roll) {
+    private void doSomeWhenRollIsNotDermainder(int roll) throws Exception{
         System.out.println(getPlayerName() + " is getting out of the penalty box");
         setOutOfPenaltyBox();
         movePlayerAndAskQuestion(roll);

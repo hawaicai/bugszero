@@ -30,7 +30,7 @@ public class Game {
 		return playerMembers.size();
 	}
 
-	public void roll(int roll) {
+	public void roll(int roll) throws Exception{
 		Player player = getCurrentPlayer();
 		player.roll(roll);
 	}
