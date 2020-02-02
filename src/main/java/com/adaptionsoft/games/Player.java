@@ -1,5 +1,7 @@
 package com.adaptionsoft.games;
 
+import static com.adaptionsoft.games.Game.PLAYER_NUMBERS;
+
 public class Player {
     private final String name;
     private final Questions questions;
@@ -46,7 +48,7 @@ public class Player {
         return this.places;
     }
 
-    public void Increasepurses() {
+    public void increasepurses() {
         this.purses++;
     }
 
@@ -93,4 +95,22 @@ public class Player {
     private boolean rollIsDermainder(int roll) {
         return roll % 2 == 0;
     }
+
+    public boolean didPlayerWin() {
+        return !(getPurses() == PLAYER_NUMBERS);
+    }
+
+    public boolean doSomeWhenCorrectlyAnswered() {
+        increasepurses();
+        System.out.println("Answer was correct!!!!");
+
+        System.out.println(getPlayerName()
+                + " now has "
+                + getPurses()
+                + " Gold Coins.");
+
+        boolean winner = didPlayerWin();
+        return winner;
+    }
+
 }

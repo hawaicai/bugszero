@@ -1,7 +1,6 @@
 package com.adaptionsoft.games;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 public class Game {
 	public static final String POP = "Pop";
@@ -95,20 +94,12 @@ public class Game {
 
 	private void pursesAdd() {
 		Player player = getCurrentPlayer();
-		player.Increasepurses();
+		player.increasepurses();
 	}
 	private boolean doSomeWhenCorrectlyanswered() {
-		pursesAdd();
-    	System.out.println("Answer was corrent!!!!");
-
-		System.out.println(getCurrentplayer()
-				+ " now has "
-				+ getCurrentPurses()
-				+ " Gold Coins.");
-
-		boolean winner = didPlayerWin();
+		Player player = getCurrentPlayer();
+		boolean winner = player.doSomeWhenCorrectlyAnswered();
 		currentPlayerAdd();
-
 		return winner;
 	}
 
