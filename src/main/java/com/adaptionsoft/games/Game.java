@@ -40,8 +40,8 @@ public class Game {
 		Player player = getCurrentPlayer();
 		System.out.println(player.getPlayerName() + " is the current player");
 		System.out.println("They have rolled a " + roll);
-		Player penaltyPlayer = penaltyBox.get(player.getPlayerName());
-		if (penaltyPlayer == null) {
+//		Player penaltyPlayer = penaltyBox.get(player.getPlayerName());
+		if (penaltyBox.get(player.getPlayerName()) == null) {
 			player.movePlayerAndAskQuestion(roll);
 			return;
 		}
@@ -50,11 +50,16 @@ public class Game {
 		}
 		else{
 			System.out.println(player.getPlayerName() + " is getting out of the penalty box");
-			penaltyBox.remove(player.getPlayerName());
+			removeFromPenaltyBox(player);
 			player.movePlayerAndAskQuestion(roll);
 		}
 		return;
 	}
+
+	private void removeFromPenaltyBox(Player player) {
+		penaltyBox.remove(player.getPlayerName());
+	}
+
 	private boolean rollIsDermainder(int roll) {
 		return roll % 2 == 0;
 	}
