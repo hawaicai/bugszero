@@ -44,10 +44,6 @@ public class Game {
 		player.roll(roll);
 	}
 
-	private Object getCurrentplayer() {
-		return playerMembers.get(currentPlayer).getPlayerName();
-	}
-
 	private boolean isInPenaltyBox() {
     	Player player = getCurrentPlayer();
     	return player.isInPenaltyBox();
@@ -63,7 +59,7 @@ public class Game {
 			return true;
 		}
 
-		return doSome();
+		return doSomeWhenCorrectlyanswered();
 	}
 
 	private boolean isGettingOutOfPenaltyBox() {
@@ -79,23 +75,20 @@ public class Game {
 	}
 
 	private boolean doSome() {
-		System.out.println("Answer was correct!!!!");
 		currentPlayerAdd();
-		pursesAdd();
-		System.out.println(getCurrentplayer()
-				+ " now has "
-				+ getCurrentPurses()
-				+ " Gold Coins.");
-
-		boolean winner = didPlayerWin();
-
+		Player player = getCurrentPlayer();
+		boolean winner = player.doSomeWhenCorrectlyAnswered();
 		return winner;
 	}
 
-	private void pursesAdd() {
+	public boolean doSomeTemp()
+	{
 		Player player = getCurrentPlayer();
-		player.increasepurses();
+		boolean winner = player.doSomeWhenCorrectlyAnswered();
+		currentPlayerAdd();
+		return winner;
 	}
+
 	private boolean doSomeWhenCorrectlyanswered() {
 		Player player = getCurrentPlayer();
 		boolean winner = player.doSomeWhenCorrectlyAnswered();
@@ -109,25 +102,13 @@ public class Game {
 	}
 
 	public boolean wrongAnswer(){
-		System.out.println("Question was incorrectly answered");
-		System.out.println(getCurrentplayer() + " was sent to the penalty box");
-		setToPenaltyBox();
-
+		Player player = getCurrentPlayer();
+		player.wrongAnswer();
 		currentPlayerAdd();
 		return true;
 	}
 
-	private void setToPenaltyBox() {
-		Player player = getCurrentPlayer();
-		player.setToPenaltyBox();
-	}
-
 	private Player getCurrentPlayer() {
 		return playerMembers.get(currentPlayer);
-	}
-
-
-	private boolean didPlayerWin() {
-		return !(getCurrentPurses() == PLAYER_NUMBERS);
 	}
 }

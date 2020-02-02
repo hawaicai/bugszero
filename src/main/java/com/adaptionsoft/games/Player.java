@@ -103,7 +103,6 @@ public class Player {
     public boolean doSomeWhenCorrectlyAnswered() {
         increasepurses();
         System.out.println("Answer was correct!!!!");
-
         System.out.println(getPlayerName()
                 + " now has "
                 + getPurses()
@@ -111,6 +110,25 @@ public class Player {
 
         boolean winner = didPlayerWin();
         return winner;
+    }
+/*
+    public boolean doSome() {
+        increasepurses();
+        System.out.println("Answer was correct!!!!");
+        System.out.println(getPlayerName()
+                + " now has "
+                + getPurses()
+                + " Gold Coins.");
+
+        boolean winner = didPlayerWin();
+        return winner;
+    }
+*/
+    public boolean wrongAnswer(){
+        System.out.println("Question was incorrectly answered");
+        System.out.println(getPlayerName() + " was sent to the penalty box");
+        setToPenaltyBox();
+        return true;
     }
 
 }
