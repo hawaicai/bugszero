@@ -7,12 +7,14 @@ public class Player {
     private final Questions questions;
     private int places;
     private int purses;
+    private boolean inPenaltyBox;
 
     public Player(String playerName, Questions questions) {
         this.name = playerName;
         this.questions = questions;
         this.places = 0;
         this.purses = 0;
+        inPenaltyBox = false;
     }
 
     public void addRoll(int roll) {
@@ -73,6 +75,29 @@ public class Player {
     public boolean wrongAnswer(){
         System.out.println("Question was incorrectly answered");
         System.out.println(getPlayerName() + " was sent to the penalty box");
+        this.inPenaltyBox = true;
         return true;
+    }
+
+    public void roll(int roll) {
+        System.out.println(getPlayerName() + " is the current player");
+        System.out.println("They have rolled a " + roll);
+        if (!this.inPenaltyBox) {
+            movePlayerAndAskQuestion(roll);
+            return;
+        }
+        if (rollIsDermainder(roll)) {
+            System.out.println(getPlayerName() + " is not getting out of the penalty box");
+            this.inPenaltyBox = true;
+        }
+        else{
+            System.out.println(getPlayerName() + " is getting out of the penalty box");
+            this.inPenaltyBox = false;
+            movePlayerAndAskQuestion(roll);
+        }
+        return;
+    }
+    private boolean rollIsDermainder(int roll) {
+        return roll % 2 == 0;
     }
 }
