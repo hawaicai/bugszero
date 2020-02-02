@@ -41,7 +41,7 @@ public class Game {
 		System.out.println(player.getPlayerName() + " is the current player");
 		System.out.println("They have rolled a " + roll);
 
-		if (isInPenaltyBox(player)) {
+		if (isNotInPenaltyBox(player)) {
 			player.movePlayerAndAskQuestion(roll);
 			return;
 		}
@@ -56,12 +56,13 @@ public class Game {
 		return;
 	}
 
-	private boolean isInPenaltyBox(Player player) {
-		return penaltyBox.get(player.getPlayerName()) == null;
+	private boolean isNotInPenaltyBox(Player player) {
+    	return player.isInpenaltyBox() == false;
 	}
 
 	private void removeFromPenaltyBox(Player player) {
 		penaltyBox.remove(player.getPlayerName());
+		player.setOutOfPenaltyBox();
 	}
 
 	private boolean rollIsDermainder(int roll) {
@@ -71,7 +72,7 @@ public class Game {
 	public boolean wasCorrectlyAnswered() {
     	Player player = getCurrentPlayer();
     	boolean winner = true;
-    	if (isInPenaltyBox(player))
+    	if (isNotInPenaltyBox(player))
 		{
 			winner = player.doSomeWhenCorrectlyAnswered();
 		}
@@ -89,6 +90,7 @@ public class Game {
 
 	private void setToPenaltyBox(Player player) {
 		penaltyBox.put(player.getPlayerName(), player);
+		player.setToPenaltyBox();
 	}
 
 	private void toNextPlayer() {

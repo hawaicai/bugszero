@@ -91,22 +91,33 @@ public class Player {
     public void roll(int roll) {
         System.out.println(getPlayerName() + " is the current player");
         System.out.println("They have rolled a " + roll);
-        if (!this.inPenaltyBox) {
+        if (!isInpenaltyBox()) {
             movePlayerAndAskQuestion(roll);
             return;
         }
         if (rollIsDermainder(roll)) {
             System.out.println(getPlayerName() + " is not getting out of the penalty box");
-            this.inPenaltyBox = true;
         }
         else{
             System.out.println(getPlayerName() + " is getting out of the penalty box");
-            this.inPenaltyBox = false;
+
             movePlayerAndAskQuestion(roll);
         }
         return;
     }
     private boolean rollIsDermainder(int roll) {
         return roll % 2 == 0;
+    }
+
+    public void setToPenaltyBox() {
+        this.inPenaltyBox = true;
+    }
+
+    public void setOutOfPenaltyBox() {
+        this.inPenaltyBox = false;
+    }
+
+    public boolean isInpenaltyBox() {
+        return this.inPenaltyBox;
     }
 }
