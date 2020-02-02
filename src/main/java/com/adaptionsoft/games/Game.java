@@ -38,7 +38,6 @@ public class Game {
 	}
 
 	public void roll(int roll) {
-    //	toNextPlayer();
 		Player player = getCurrentPlayer();
 		player.roll(roll);
 	}
@@ -48,7 +47,6 @@ public class Game {
 		boolean winner = player.wasCorrectlyAnswered();
 		toNextPlayer();
 		return winner;
-
 	}
 
 	public boolean wrongAnswer(){
@@ -64,15 +62,6 @@ public class Game {
 			currentPlayer = 0;
 		}
 	}
-
-	public boolean doSomeTemp()
-	{
-		Player player = getCurrentPlayer();
-		boolean winner = player.doSomeWhenCorrectlyAnswered();
-		toNextPlayer();
-		return winner;
-	}
-
 
 	private Player getCurrentPlayer() {
 		return playerMembers.get(currentPlayer);

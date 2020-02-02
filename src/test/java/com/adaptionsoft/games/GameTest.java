@@ -24,25 +24,4 @@ public class GameTest {
         Approvals.verify(resultStream.toString());
 
 	}
-
-	@Test
-    public void testSome()
-    {
-        ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
-        System.setOut(new PrintStream(resultStream));
-        String str = "bob was added\r\n" +
-                "They are player number 1\r\n" +
-                "suse was added\r\n" +
-                "They are player number 2\r\n" +
-                "jack was added\r\n" +
-                "They are player number 3\r\n" +
-                "Answer was correct!!!!\r\n" +
-                "bob now has 1 Gold Coins.\r\n";
-        Game game = new Game();
-        game.add("bob");
-        game.add("suse");
-        game.add("jack");
-        game.doSomeTemp();
-        assertEquals(str, resultStream.toString());
-    }
 }
