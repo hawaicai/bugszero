@@ -47,7 +47,6 @@ public class Game {
 		}
 		if (rollIsDermainder(roll)) {
 			System.out.println(player.getPlayerName() + " is not getting out of the penalty box");
-			penaltyBox.put(player.getPlayerName(), player);
 		}
 		else{
 			System.out.println(player.getPlayerName() + " is getting out of the penalty box");
@@ -66,7 +65,7 @@ public class Game {
     	boolean winner = true;
     	if (null == penaltyPlayer)
 		{
-			winner = player.wasCorrectlyAnswered();
+			winner = player.doSomeWhenCorrectlyAnswered();
 		}
 		toNextPlayer();
 		return winner;

@@ -61,6 +61,15 @@ public class Player {
     }
 
     public boolean wasCorrectlyAnswered() {
+        boolean winner = true;
+        if (!this.inPenaltyBox)
+        {
+            winner = doSomeWhenCorrectlyAnswered();
+        }
+        return winner;
+    }
+
+    public boolean doSomeWhenCorrectlyAnswered() {
         increasepurses();
         System.out.println("Answer was correct!!!!");
         System.out.println(getPlayerName()
