@@ -30,20 +30,26 @@ public class Game {
 
 		if (isInPenaltyBox()) {
 			if (roll % 2 != 0) {
-				isGettingOutOfPenaltyBox = true;
-
-				System.out.println(getCurrentPlayerName() + " is getting out of the penalty box");
+				gettingOutOfpenaltyBox();
 				movePlayerAndAskQuestion(roll);
 			} else {
-				System.out.println(getCurrentPlayerName() + " is not getting out of the penalty box");
-				isGettingOutOfPenaltyBox = false;
-				}
-
+				stadyInPenaltyBox();
+			}
 		} else {
-
 			movePlayerAndAskQuestion(roll);
 		}
 
+	}
+
+	private void stadyInPenaltyBox() {
+		System.out.println(getCurrentPlayerName() + " is not getting out of the penalty box");
+		isGettingOutOfPenaltyBox = false;
+	}
+
+	private void gettingOutOfpenaltyBox() {
+		isGettingOutOfPenaltyBox = true;
+
+		System.out.println(getCurrentPlayerName() + " is getting out of the penalty box");
 	}
 
 	private boolean isInPenaltyBox() {
@@ -60,7 +66,6 @@ public class Game {
 
 	private void movePlayerAndAskQuestion(int roll) {
 		movePlayer(roll);
-
 		askQuestion();
 	}
 
@@ -70,8 +75,8 @@ public class Game {
 
 	private void askQuestion() {
 		String currentCategory = decksManager.currentCategory(getCurrentPlayerPlace());
-		System.out.println("The category is " + currentCategory);
 		String questions = decksManager.askQuestion(currentCategory);
+		System.out.println("The category is " + currentCategory);
 		System.out.println(questions);
 	}
 
@@ -94,7 +99,7 @@ public class Game {
 				return true;
 			}
 		} else {
-			System.out.println("Answer was corrent!!!!");
+			System.out.println("Answer was correct!!!!");
 			increasePlayerGoldCoins();
 
 			boolean winner = didPlayerWin();
