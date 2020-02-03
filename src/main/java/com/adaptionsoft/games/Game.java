@@ -13,7 +13,7 @@ public class Game {
     LinkedList scienceQuestions = new LinkedList();
     LinkedList sportsQuestions = new LinkedList();
     LinkedList rockQuestions = new LinkedList();
-
+	private final DecksManager decksManager = new DecksManager();
     int currentPlayer = 0;
     boolean isGettingOutOfPenaltyBox;
 
