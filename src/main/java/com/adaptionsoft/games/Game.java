@@ -3,8 +3,7 @@ package com.adaptionsoft.games;
 import java.util.ArrayList;
 
 public class Game {
-    ArrayList players = new ArrayList();
-    ArrayList<Player> playerMembers = new ArrayList<Player>();
+    ArrayList<Player> players = new ArrayList<Player>();
 
     private final QuestionsManager questionsManager = new QuestionsManager();
     int currentPlayer = 0;
@@ -16,17 +15,16 @@ public class Game {
 
 	public boolean add(String playerName) {
 
-	    players.add(playerName);
 
 
-		playerMembers.add(new Player(playerName));
+		players.add(new Player(playerName));
 
 	    System.out.println("They are player number " + howManyPlayers());
 		return true;
 	}
 
 	public int howManyPlayers() {
-		return playerMembers.size();
+		return players.size();
 	}
 
 	public void roll(int roll) {
@@ -63,7 +61,7 @@ public class Game {
 	}
 
 	private Object getCurrentPlayerName() {
-		return players.get(currentPlayer);
+		return getCurrentPlayer().getName();
 	}
 
 	private void movePlayerAndAskQuestion(int roll) {
@@ -138,12 +136,12 @@ public class Game {
 	}
 
 	private Player getCurrentPlayer() {
-		return playerMembers.get(currentPlayer);
+		return players.get(currentPlayer);
 	}
 
 	private void toNextPlayer() {
 		currentPlayer++;
-		if (currentPlayer == players.size()) currentPlayer = 0;
+		if (currentPlayer == howManyPlayers()) currentPlayer = 0;
 	}
 
 	public boolean wrongAnswer(){

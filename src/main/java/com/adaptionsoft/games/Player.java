@@ -39,7 +39,7 @@ public class Player {
         inPenaltyBox = true;
     }
 
-    private String getName() {
+    String getName() {
         return name;
     }
 }
