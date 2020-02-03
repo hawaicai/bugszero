@@ -6,7 +6,6 @@ import java.util.LinkedList;
 public class Game {
     ArrayList players = new ArrayList();
     ArrayList<Player> playerMembers = new ArrayList<Player>();
-    int[] places = new int[6];
     int[] purses  = new int[6];
     boolean[] inPenaltyBox  = new boolean[6];
 
@@ -14,28 +13,23 @@ public class Game {
     int currentPlayer = 0;
     boolean isGettingOutOfPenaltyBox;
 
-    public Game(){
-    }
-
 	public boolean isPlayable() {
 		return (howManyPlayers() >= 2);
 	}
 
 	public boolean add(String playerName) {
 
-
 	    players.add(playerName);
-	    places[howManyPlayers()] = 0;
 	    purses[howManyPlayers()] = 0;
 	    inPenaltyBox[howManyPlayers()] = false;
+		playerMembers.add(new Player(playerName));
 
-	    System.out.println(playerName + " was added");
-	    System.out.println("They are player number " + players.size());
+	    System.out.println("They are player number " + howManyPlayers());
 		return true;
 	}
 
 	public int howManyPlayers() {
-		return players.size();
+		return playerMembers.size();
 	}
 
 	public void roll(int roll) {
@@ -79,17 +73,24 @@ public class Game {
 	}
 
 	private void movePlayer(int roll) {
-		places[currentPlayer] = places[currentPlayer] + roll;
-		if (places[currentPlayer] > 11) places[currentPlayer] = places[currentPlayer] - 12;
+		forwardPlaces(roll);
 
 		System.out.println(getCurrentPlayerName()
                 + "'s new location is "
-                + places[currentPlayer]);
-		System.out.println("The category is " + questionsManager.currentCategory(places[currentPlayer]));
+                + getCurrentPlayerPlaces());
+		System.out.println("The category is " + questionsManager.currentCategory(getCurrentPlayerPlaces()));
+	}
+
+	private void forwardPlaces(int roll) {
+		playerMembers.get(currentPlayer).forwardPlaces(roll);
 	}
 
 	private void askQuestion() {
-		System.out.println(questionsManager.askQuestion(places[currentPlayer]));
+		System.out.println(questionsManager.askQuestion(getCurrentPlayerPlaces()));
+	}
+
+	private int getCurrentPlayerPlaces() {
+		return playerMembers.get(currentPlayer).getPlaces();
 	}
 
 	public boolean wasCorrectlyAnswered() {
