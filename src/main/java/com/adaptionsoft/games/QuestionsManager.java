@@ -3,10 +3,10 @@ package com.adaptionsoft.games;
 import java.util.LinkedList;
 
 public class QuestionsManager {
-    LinkedList popQuestions = new LinkedList();
-    LinkedList scienceQuestions = new LinkedList();
-    LinkedList sportsQuestions = new LinkedList();
-    LinkedList rockQuestions = new LinkedList();
+    LinkedList<String> popQuestions = new LinkedList();
+    LinkedList<String> scienceQuestions = new LinkedList();
+    LinkedList<String> sportsQuestions = new LinkedList();
+    LinkedList<String> rockQuestions = new LinkedList();
 
     public QuestionsManager()
     {
@@ -18,16 +18,17 @@ public class QuestionsManager {
         }
     }
 
-    public void askQuestion(int places) {
+    public String askQuestion(int places) {
         String category = currentCategory(places);
         if (category == "Pop")
-            System.out.println(popQuestions.removeFirst());
+            return (popQuestions.removeFirst());
         if (category == "Science")
-            System.out.println(scienceQuestions.removeFirst());
+            return (scienceQuestions.removeFirst());
         if (category == "Sports")
-            System.out.println(sportsQuestions.removeFirst());
+            return (sportsQuestions.removeFirst());
         if (category == "Rock")
-            System.out.println(rockQuestions.removeFirst());
+            return (rockQuestions.removeFirst());
+        return "";
     }
 
     public String currentCategory(int places) {

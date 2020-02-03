@@ -82,7 +82,8 @@ public class Game {
                 + "'s new location is "
                 + places[currentPlayer]);
 		System.out.println("The category is " + questionsManager.currentCategory(places[currentPlayer]));
-		questionsManager.askQuestion(places[currentPlayer]);
+
+		System.out.println(questionsManager.askQuestion(places[currentPlayer]));
 	}
 
 	public boolean wasCorrectlyAnswered() {
