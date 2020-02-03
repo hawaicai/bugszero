@@ -55,4 +55,32 @@ public class Player {
     public void getOutOfPenaltyBox() {
         inPenaltyBox = false;
     }
+
+    public void gettingOutOfPenaltyBox() {
+        getOutOfPenaltyBox();
+        System.out.println(getName() + " is getting out of the penalty box");
+    }
+
+    public void stadyInPenaltyBox() {
+        System.out.println(getName() + " is not getting out of the penalty box");
+    }
+
+    public boolean playerRoll(int roll) {
+        System.out.println(getName() + " is the current player");
+        System.out.println("They have rolled a " + roll);
+        if (isInPenaltyBox()) {
+            if (roll % 2 != 0) {
+                gettingOutOfPenaltyBox();
+                forwardPlaces(roll);
+                return true;
+            } else {
+                stadyInPenaltyBox();
+                return false;
+            }
+
+        } else {
+            forwardPlaces(roll);
+            return true;
+        }
+    }
 }

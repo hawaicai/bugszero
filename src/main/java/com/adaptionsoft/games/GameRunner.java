@@ -24,8 +24,9 @@ public class GameRunner {
 
 		do {
 
-			aGame.roll(rand.nextInt(5) + 1);
-
+			boolean isAnswer = aGame.roll(rand.nextInt(5) + 1);
+			if (isAnswer)
+				aGame.askQuestion();
 			if (rand.nextInt(9) == 7) {
 				notAWinner = aGame.wrongAnswer();
 			} else {
