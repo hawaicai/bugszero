@@ -15,34 +15,48 @@ public class Game {
 
 	public void start(Random rand)
 	{
-		boolean isAWinner = false;
+		boolean notAWinner = true;
 		do {
-			boolean isAAnswer = roll(rand.nextInt(5) + 1);
-			if (isAAnswer) {
-				answerQuestion(rand);
+			roll(rand.nextInt(5) + 1);
+			final boolean isWrongAnswer = rand.nextInt(9) == 7;
+
+			if (!players.getCurrentPlayer().isInPenaltyBox()) {
+				if (isWrongAnswer) {
+					wasWrongAnswer();
+				} else {
+					wasCorrectlyAnswered();
+				}
+				notAWinner = !didCurrentPlayerIsAWinner();
 			}
-			isAWinner = didCurrentPlayerIsAWinner();
-			toNextPlayer();
-		} while (!isAWinner);
-
+			players.toNextPlayer();
+		} while (notAWinner);
 	}
 
-	private void answerQuestion(Random rand) {
-		askQuestion();
-		boolean wrongResult = rand.nextInt(9) == 7;
-		answerAndIsWinner(wrongResult);
-	}
+	private void roll(int roll) {
+		System.out.println(players.getCurrentPlayer().getName() + " is the current player");
+		System.out.println("They have rolled a " + roll);
 
-	private void answerAndIsWinner(boolean result) {
-		if (result) {
-			wasWrongAnswer();
-		} else {
-			wasCorrectlyAnswered();
+		if (!players.getCurrentPlayer().isInPenaltyBox()) {
+			movePlayerAndAskQuestion(roll);
+			return;
 		}
+
+		if (isOdd(roll)) {
+			players.getCurrentPlayer().gettingOutOfPenaltyBox();
+			movePlayerAndAskQuestion(roll);
+			return;
+		}
+
+		players.getCurrentPlayer().stadyInPenaltyBox();
 	}
 
-	public boolean roll(int roll) {
-		return getCurrentPlayer().playerRoll(roll);
+	private boolean isOdd(int number) {
+		return number % 2 != 0;
+	}
+
+	private void movePlayerAndAskQuestion(int roll) {
+		players.getCurrentPlayer().forwardPlaces(roll);
+		askQuestion();
 	}
 
 	void askQuestion() {
@@ -68,7 +82,4 @@ public class Game {
 		return players.getCurrentPlayer();
 	}
 
-	void toNextPlayer() {
-		players.toNextPlayer();
-	}
 }

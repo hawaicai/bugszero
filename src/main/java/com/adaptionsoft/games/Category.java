@@ -4,7 +4,9 @@ public enum Category {
     POP("Pop"),
     SCIENCE("Science"),
     SPORTS("Sports"),
-    ROCK("Rock");
+    ROCK("Rock"),
+    BLUES("Blues"),
+    HISTORY("History");
 
     private final String name;
 
