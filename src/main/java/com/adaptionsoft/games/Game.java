@@ -6,7 +6,6 @@ import java.util.LinkedList;
 public class Game {
     ArrayList players = new ArrayList();
     ArrayList<Player> playerMembers = new ArrayList<Player>();
-    int[] purses  = new int[6];
     boolean[] inPenaltyBox  = new boolean[6];
 
     private final QuestionsManager questionsManager = new QuestionsManager();
@@ -20,7 +19,7 @@ public class Game {
 	public boolean add(String playerName) {
 
 	    players.add(playerName);
-	    purses[howManyPlayers()] = 0;
+
 	    inPenaltyBox[howManyPlayers()] = false;
 		playerMembers.add(new Player(playerName));
 
@@ -82,7 +81,7 @@ public class Game {
 	}
 
 	private void forwardPlaces(int roll) {
-		playerMembers.get(currentPlayer).forwardPlaces(roll);
+		getCurrentPlayer().forwardPlaces(roll);
 	}
 
 	private void askQuestion() {
@@ -90,7 +89,7 @@ public class Game {
 	}
 
 	private int getCurrentPlayerPlaces() {
-		return playerMembers.get(currentPlayer).getPlaces();
+		return getCurrentPlayer().getPlaces();
 	}
 
 	public boolean wasCorrectlyAnswered() {
@@ -122,11 +121,23 @@ public class Game {
 
 	private void answerCorrectAndIncreaseCoins() {
 		System.out.println("Answer was correct!!!!");
-		purses[currentPlayer]++;
+		increaseCoins();
 		System.out.println(getCurrentPlayerName()
 				+ " now has "
-				+ purses[currentPlayer]
+				+ getCurrentCoins()
 				+ " Gold Coins.");
+	}
+
+	private int getCurrentCoins() {
+		return getCurrentPlayer().getGoldCoins();
+	}
+
+	private void increaseCoins() {
+		getCurrentPlayer().increaseCoins();
+	}
+
+	private Player getCurrentPlayer() {
+		return playerMembers.get(currentPlayer);
 	}
 
 	private void toNextPlayer() {
@@ -149,6 +160,6 @@ public class Game {
 
 
 	private boolean didPlayerWin() {
-		return !(purses[currentPlayer] == 6);
+		return !(getCurrentCoins() == 6);
 	}
 }

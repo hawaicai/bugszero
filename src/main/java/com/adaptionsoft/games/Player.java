@@ -3,6 +3,7 @@ package com.adaptionsoft.games;
 public class Player {
     private final String name;
     private int places = 0;
+    private int coins = 0;
 
     public Player(String playerName) {
         name = playerName;
@@ -18,5 +19,13 @@ public class Player {
         if (places > 11) {
             places -= 12;
         }
+    }
+
+    public void increaseCoins() {
+        coins++;
+    }
+
+    public int getGoldCoins() {
+        return coins;
     }
 }
