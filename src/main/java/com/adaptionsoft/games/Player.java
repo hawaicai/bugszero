@@ -20,19 +20,21 @@ public class Player {
         if (places > 11) {
             places -= 12;
         }
+
         System.out.println(getName()
                 + "'s new location is "
                 + getPlaces());
-
     }
 
-    public void increaseCoins() {
-        System.out.println("Answer was correct!!!!");
+    public boolean increaseCoinsAndReturnIsWinner() {
         coins++;
+
         System.out.println(getName()
                 + " now has "
                 + getGoldCoins()
                 + " Gold Coins.");
+
+        return  getGoldCoins() == 6;
     }
 
     public int getGoldCoins() {
@@ -52,12 +54,8 @@ public class Player {
         return name;
     }
 
-    public void getOutOfPenaltyBox() {
-        inPenaltyBox = false;
-    }
-
     public void gettingOutOfPenaltyBox() {
-        getOutOfPenaltyBox();
+        inPenaltyBox = false;
         System.out.println(getName() + " is getting out of the penalty box");
     }
 
@@ -69,18 +67,26 @@ public class Player {
         System.out.println(getName() + " is the current player");
         System.out.println("They have rolled a " + roll);
         if (isInPenaltyBox()) {
-            if (roll % 2 != 0) {
-                gettingOutOfPenaltyBox();
-                forwardPlaces(roll);
-                return true;
-            } else {
-                stadyInPenaltyBox();
-                return false;
-            }
-
-        } else {
+            return checkRollByRemainder(roll);
+        }
+        else {
             forwardPlaces(roll);
             return true;
         }
+    }
+
+    private boolean checkRollByRemainder(int roll) {
+        if (isRemainder(roll)) {
+            gettingOutOfPenaltyBox();
+            forwardPlaces(roll);
+            return true;
+        } else {
+            stadyInPenaltyBox();
+            return false;
+        }
+    }
+
+    private boolean isRemainder(int roll) {
+        return roll % 2 != 0;
     }
 }

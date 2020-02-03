@@ -1,25 +1,39 @@
 package com.adaptionsoft.games;
 
-import java.util.ArrayList;
+import java.util.Random;
 
 public class Game {
-    ArrayList<Player> players = new ArrayList<Player>();
-
+	Players players = new Players();
     private final QuestionsManager questionsManager = new QuestionsManager();
-    int currentPlayer = 0;
-
-	public boolean isPlayable() {
-		return (howManyPlayers() >= 2);
-	}
 
 	public boolean add(String playerName) {
-		players.add(new Player(playerName));
-	    System.out.println("They are player number " + howManyPlayers());
+		Player player = new Player(playerName);
+		players.add(player);
+	    System.out.println("They are player number " + players.howManyPlayers());
 		return true;
 	}
 
-	public int howManyPlayers() {
-		return players.size();
+	public void start(Random rand)
+	{
+		boolean asAWinner = false;
+		do {
+			boolean isAnswer = roll(rand.nextInt(5) + 1);
+			if (isAnswer) {
+				askQuestion();
+				boolean wrongResult = rand.nextInt(9) == 7;
+				asAWinner = answerAndIsWinner(wrongResult);
+			}
+			toNextPlayer();
+		} while (!asAWinner);
+
+	}
+
+	private boolean answerAndIsWinner(boolean result) {
+		if (result) {
+			return wasWrongAnswer();
+		} else {
+			return wasCorrectlyAnswered();
+		}
 	}
 
 	public boolean roll(int roll) {
@@ -33,37 +47,22 @@ public class Game {
 	}
 
 	public boolean wasCorrectlyAnswered() {
-		if (getCurrentPlayer().isInPenaltyBox()){
-				return true;
-		} else {
-			return increaseCoinsAndNextPlayer();
-		}
-	}
-
-	private boolean increaseCoinsAndNextPlayer() {
-		getCurrentPlayer().increaseCoins();
-		boolean winner = didPlayerWin();
-		return winner;
+		System.out.println("Answer was correct!!!!");
+		boolean isWinner = getCurrentPlayer().increaseCoinsAndReturnIsWinner();
+		return isWinner;
 	}
 
 	private Player getCurrentPlayer() {
-		return players.get(currentPlayer);
+		return players.getCurrentPlayer();
 	}
 
 	void toNextPlayer() {
-		currentPlayer++;
-		if (currentPlayer == howManyPlayers()){
-			currentPlayer = 0;
-		}
+		players.toNextPlayer();
 	}
 
-	public boolean wrongAnswer(){
+	public boolean wasWrongAnswer(){
 		System.out.println("Question was incorrectly answered");
 		getCurrentPlayer().setToPenaltyBox();
-		return true;
-	}
-
-	private boolean didPlayerWin() {
-		return !(getCurrentPlayer().getGoldCoins() == 6);
+		return false;
 	}
 }
