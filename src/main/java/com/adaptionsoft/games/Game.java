@@ -81,35 +81,12 @@ public class Game {
 		System.out.println(players.get(currentPlayer)
                 + "'s new location is "
                 + places[currentPlayer]);
-		System.out.println("The category is " + currentCategory());
+		System.out.println("The category is " + questionsManager.currentCategory(places[currentPlayer]));
 		askQuestion();
 	}
 
 	private void askQuestion() {
     	questionsManager.askQuestion(places[currentPlayer]);
-    	/*
-		if (currentCategory() == "Pop")
-			System.out.println(popQuestions.removeFirst());
-		if (currentCategory() == "Science")
-			System.out.println(scienceQuestions.removeFirst());
-		if (currentCategory() == "Sports")
-			System.out.println(sportsQuestions.removeFirst());
-		if (currentCategory() == "Rock")
-			System.out.println(rockQuestions.removeFirst());*/
-	}
-
-
-	private String currentCategory() {
-		if (places[currentPlayer] == 0) return "Pop";
-		if (places[currentPlayer] == 4) return "Pop";
-		if (places[currentPlayer] == 8) return "Pop";
-		if (places[currentPlayer] == 1) return "Science";
-		if (places[currentPlayer] == 5) return "Science";
-		if (places[currentPlayer] == 9) return "Science";
-		if (places[currentPlayer] == 2) return "Sports";
-		if (places[currentPlayer] == 6) return "Sports";
-		if (places[currentPlayer] == 10) return "Sports";
-		return "Rock";
 	}
 
 	public boolean wasCorrectlyAnswered() {

@@ -30,7 +30,7 @@ public class QuestionsManager {
             System.out.println(rockQuestions.removeFirst());
     }
 
-    private String currentCategory(int places) {
+    public String currentCategory(int places) {
         if (places == 0) return "Pop";
         if (places == 4) return "Pop";
         if (places == 8) return "Pop";
