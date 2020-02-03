@@ -8,7 +8,7 @@ public class Game {
     int[] places = new int[6];
     int[] purses  = new int[6];
     boolean[] inPenaltyBox  = new boolean[6];
-
+	ArrayList<Player> playersTmp = new ArrayList<Player>();
 	private final DecksManager decksManager = new DecksManager();
     int currentPlayer = 0;
     boolean isGettingOutOfPenaltyBox;
@@ -18,9 +18,8 @@ public class Game {
 	}
 
 	public boolean add(String playerName) {
-
-
-	    players.add(playerName);
+		players.add(playerName);
+		playersTmp.add(new Player(playerName));
 	    places[howManyPlayers()] = 0;
 	    purses[howManyPlayers()] = 0;
 	    inPenaltyBox[howManyPlayers()] = false;
