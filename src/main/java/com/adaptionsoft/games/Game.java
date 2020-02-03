@@ -3,11 +3,10 @@ package com.adaptionsoft.games;
 import java.util.ArrayList;
 
 public class Game {
-    ArrayList players = new ArrayList();
     int[] places = new int[6];
     int[] purses  = new int[6];
     boolean[] inPenaltyBox  = new boolean[6];
-	ArrayList<Player> playersTmp = new ArrayList<Player>();
+	ArrayList<Player> players = new ArrayList<Player>();
 	private final DecksManager decksManager = new DecksManager();
     int currentPlayer = 0;
     boolean isGettingOutOfPenaltyBox;
@@ -17,8 +16,7 @@ public class Game {
 	}
 
 	public boolean add(String playerName) {
-		players.add(playerName);
-		playersTmp.add(new Player(playerName));
+		players.add(new Player(playerName));
 	    places[howManyPlayers()] = 0;
 	    purses[howManyPlayers()] = 0;
 	    inPenaltyBox[howManyPlayers()] = false;
@@ -59,7 +57,7 @@ public class Game {
 	}
 
 	private Object getCurrentPlayerName() {
-		return players.get(currentPlayer);
+		return players.get(currentPlayer).getName();
 	}
 
 	private void movePlayerAndAskQuestion(int roll) {
@@ -129,7 +127,7 @@ public class Game {
 
 	private void toNextPlayer() {
 		currentPlayer++;
-		if (currentPlayer == players.size()) currentPlayer = 0;
+		if (currentPlayer == howManyPlayers()) currentPlayer = 0;
 	}
 
 	public boolean wrongAnswer(){
