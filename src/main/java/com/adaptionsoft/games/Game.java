@@ -1,7 +1,6 @@
 package com.adaptionsoft.games;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 public class Game {
     ArrayList players = new ArrayList();
@@ -81,8 +80,10 @@ public class Game {
 	}
 
 	private void askQuestion() {
-		System.out.println("The category is " + currentCategory());
-		decksManager.askQuestion(getCurrentPlayerPlace());
+		String currentCategory = decksManager.currentCategory(getCurrentPlayerPlace());
+		System.out.println("The category is " + currentCategory);
+		String questions = decksManager.askQuestion(currentCategory);
+		System.out.println(questions);
 	}
 
 	private int getCurrentPlayerPlace() {

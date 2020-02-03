@@ -33,16 +33,15 @@ public class DecksManager {
         return "Rock";
     }
 
-    protected void askQuestion(int place) {
-        String category = currentCategory(place);
+    public String askQuestion(String category) {
         if (category == "Pop")
-            System.out.println(popQuestions.removeFirst());
+            return (String) popQuestions.removeFirst();
         if (category == "Science")
-            System.out.println(scienceQuestions.removeFirst());
+            return (String) scienceQuestions.removeFirst();
         if (category == "Sports")
-            System.out.println(sportsQuestions.removeFirst());
+            return (String) sportsQuestions.removeFirst();
         if (category == "Rock")
-            System.out.println(rockQuestions.removeFirst());
+            return (String) rockQuestions.removeFirst();
+        return "";
     }
-
 }
