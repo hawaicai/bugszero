@@ -26,15 +26,22 @@ public class Player {
                 + getPlaces());
     }
 
-    public boolean increaseCoinsAndReturnIsWinner() {
+    public boolean wasCorrectlyAnswered() {
+        increaseCoins();
+        return isAWinner();
+    }
+
+    public boolean isAWinner() {
+        return getGoldCoins() == 6;
+    }
+
+    public void increaseCoins() {
         coins++;
 
         System.out.println(getName()
                 + " now has "
                 + getGoldCoins()
                 + " Gold Coins.");
-
-        return  getGoldCoins() == 6;
     }
 
     public int getGoldCoins() {
