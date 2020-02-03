@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Game {
     int[] places = new int[6];
     int[] purses  = new int[6];
-    boolean[] inPenaltyBox  = new boolean[6];
+
 	ArrayList<Player> players = new ArrayList<Player>();
 	private final DecksManager decksManager = new DecksManager();
     int currentPlayer = 0;
@@ -19,7 +19,6 @@ public class Game {
 		players.add(new Player(playerName));
 	    places[howManyPlayers()] = 0;
 	    purses[howManyPlayers()] = 0;
-	    inPenaltyBox[howManyPlayers()] = false;
 
 	    System.out.println(playerName + " was added");
 	    System.out.println("They are player number " + howManyPlayers());
@@ -53,7 +52,7 @@ public class Game {
 	}
 
 	private boolean isInPenaltyBox() {
-		return inPenaltyBox[currentPlayer];
+		return players.get(currentPlayer).isInpenaltyBox();
 	}
 
 	private Object getCurrentPlayerName() {
@@ -87,10 +86,6 @@ public class Game {
 	private int getCurrentPlayerPlace() {
 		return places[currentPlayer];
 	}
-
-	private String currentCategory() {
-		return decksManager.currentCategory(getCurrentPlayerPlace());
-    }
 
 	public boolean wasCorrectlyAnswered() {
 		if (isInPenaltyBox()){
@@ -133,10 +128,14 @@ public class Game {
 	public boolean wrongAnswer(){
 		System.out.println("Question was incorrectly answered");
 		System.out.println(getCurrentPlayerName() + " was sent to the penalty box");
-		inPenaltyBox[currentPlayer] = true;
+		setToPenaltyBox();
 
 		toNextPlayer();
 		return true;
+	}
+
+	private void setToPenaltyBox() {
+		players.get(currentPlayer).setToPenaltyBox();
 	}
 
 
