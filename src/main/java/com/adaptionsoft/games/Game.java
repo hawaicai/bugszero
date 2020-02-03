@@ -3,7 +3,6 @@ package com.adaptionsoft.games;
 import java.util.ArrayList;
 
 public class Game {
-    int[] places = new int[6];
 
 	ArrayList<Player> players = new ArrayList<Player>();
 	private final DecksManager decksManager = new DecksManager();
@@ -16,9 +15,7 @@ public class Game {
 
 	public boolean add(String playerName) {
 		players.add(new Player(playerName));
-	    places[howManyPlayers()] = 0;
 
-	    System.out.println(playerName + " was added");
 	    System.out.println("They are player number " + howManyPlayers());
 		return true;
 	}
@@ -68,14 +65,7 @@ public class Game {
 	}
 
 	private void movePlayer(int roll) {
-		places[currentPlayer] = getCurrentPlayerPlace() + roll;
-		if (getCurrentPlayerPlace() > 11) {
-			places[currentPlayer] = getCurrentPlayerPlace() - 12;
-		}
-
-		System.out.println(getCurrentPlayerName()
-                + "'s new location is "
-                + getCurrentPlayerPlace());
+		getCurrentPlayer().forWard(roll);
 	}
 
 	private void askQuestion() {
@@ -86,7 +76,7 @@ public class Game {
 	}
 
 	private int getCurrentPlayerPlace() {
-		return places[currentPlayer];
+		return getCurrentPlayer().getPalces();
 	}
 
 	public boolean wasCorrectlyAnswered() {

@@ -3,11 +3,12 @@ package com.adaptionsoft.games;
 public class Player {
     private final String name;
     private boolean inPenaltyBox = false;
-    private int goldCoins;
+    private int goldCoins = 0;
+    private int places = 0;
 
     public Player(String playerName) {
         this.name = playerName;
-        goldCoins = 0;
+        System.out.println(playerName + " was added");
     }
 
     public String getName() {
@@ -32,5 +33,20 @@ public class Player {
 
     public int getGoldCoins() {
         return goldCoins;
+    }
+
+    public void forWard(int roll) {
+        places += roll;
+        if (places > 11) {
+            places -= 12;
+        }
+        System.out.println(getName()
+                + "'s new location is "
+                + places);
+
+    }
+
+    public int getPalces() {
+        return places;
     }
 }
