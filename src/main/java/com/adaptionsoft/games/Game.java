@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 public class Game {
     int[] places = new int[6];
-    int[] purses  = new int[6];
 
 	ArrayList<Player> players = new ArrayList<Player>();
 	private final DecksManager decksManager = new DecksManager();
@@ -18,7 +17,6 @@ public class Game {
 	public boolean add(String playerName) {
 		players.add(new Player(playerName));
 	    places[howManyPlayers()] = 0;
-	    purses[howManyPlayers()] = 0;
 
 	    System.out.println(playerName + " was added");
 	    System.out.println("They are player number " + howManyPlayers());
@@ -52,11 +50,15 @@ public class Game {
 	}
 
 	private boolean isInPenaltyBox() {
-		return players.get(currentPlayer).isInpenaltyBox();
+		return getCurrentPlayer().isInpenaltyBox();
+	}
+
+	private Player getCurrentPlayer() {
+		return players.get(currentPlayer);
 	}
 
 	private Object getCurrentPlayerName() {
-		return players.get(currentPlayer).getName();
+		return getCurrentPlayer().getName();
 	}
 
 	private void movePlayerAndAskQuestion(int roll) {
@@ -113,11 +115,7 @@ public class Game {
 	}
 
 	private void increasePlayerGoldCoins() {
-		purses[currentPlayer]++;
-		System.out.println(getCurrentPlayerName()
-				+ " now has "
-				+ purses[currentPlayer]
-				+ " Gold Coins.");
+		getCurrentPlayer().increasePlayerGoldCoins();
 	}
 
 	private void toNextPlayer() {
@@ -135,11 +133,15 @@ public class Game {
 	}
 
 	private void setToPenaltyBox() {
-		players.get(currentPlayer).setToPenaltyBox();
+		getCurrentPlayer().setToPenaltyBox();
 	}
 
 
 	private boolean didPlayerWin() {
-		return !(purses[currentPlayer] == 6);
+		return !(getCurrentCoins() == 6);
+	}
+
+	private int getCurrentCoins() {
+		return getCurrentPlayer().getGoldCoins();
 	}
 }
