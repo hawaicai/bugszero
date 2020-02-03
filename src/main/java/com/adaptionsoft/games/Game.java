@@ -50,6 +50,7 @@ public class Game {
 
 	private void gettingOutOfPenaltyBox() {
 		isGettingOutOfPenaltyBox = true;
+		getCurrentPlayer().getOutOfPenaltyBox();
 		System.out.println(getCurrentPlayerName() + " is getting out of the penalty box");
 	}
 
@@ -71,28 +72,27 @@ public class Game {
 	public boolean wasCorrectlyAnswered() {
 		if (isInPenaltyBox()){
 			if (isGettingOutOfPenaltyBox) {
-				toNextPlayer();
-				getCurrentPlayer().increaseCoins();
-				boolean winner = didPlayerWin();
-				return winner;
+				return increaseCoinsAndNextPlayer();
 			}
 			else {
-				toNextPlayer();
 				return true;
 			}
 		} else {
-			getCurrentPlayer().increaseCoins();
-			boolean winner = didPlayerWin();
-			toNextPlayer();
-			return winner;
+			return increaseCoinsAndNextPlayer();
 		}
+	}
+
+	private boolean increaseCoinsAndNextPlayer() {
+		getCurrentPlayer().increaseCoins();
+		boolean winner = didPlayerWin();
+		return winner;
 	}
 
 	private Player getCurrentPlayer() {
 		return players.get(currentPlayer);
 	}
 
-	private void toNextPlayer() {
+	void toNextPlayer() {
 		currentPlayer++;
 		if (currentPlayer == howManyPlayers()){
 			currentPlayer = 0;
@@ -102,8 +102,6 @@ public class Game {
 	public boolean wrongAnswer(){
 		System.out.println("Question was incorrectly answered");
 		getCurrentPlayer().setToPenaltyBox();
-
-		toNextPlayer();
 		return true;
 	}
 

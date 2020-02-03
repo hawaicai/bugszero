@@ -51,4 +51,8 @@ public class Player {
     String getName() {
         return name;
     }
+
+    public void getOutOfPenaltyBox() {
+
+    }
 }
