@@ -20,10 +20,19 @@ public class Player {
         if (places > 11) {
             places -= 12;
         }
+        System.out.println(getName()
+                + "'s new location is "
+                + getPlaces());
+
     }
 
     public void increaseCoins() {
+        System.out.println("Answer was correct!!!!");
         coins++;
+        System.out.println(getName()
+                + " now has "
+                + getGoldCoins()
+                + " Gold Coins.");
     }
 
     public int getGoldCoins() {
