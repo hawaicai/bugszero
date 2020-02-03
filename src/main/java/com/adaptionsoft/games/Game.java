@@ -1,12 +1,10 @@
 package com.adaptionsoft.games;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 public class Game {
     ArrayList players = new ArrayList();
     ArrayList<Player> playerMembers = new ArrayList<Player>();
-    boolean[] inPenaltyBox  = new boolean[6];
 
     private final QuestionsManager questionsManager = new QuestionsManager();
     int currentPlayer = 0;
@@ -20,7 +18,7 @@ public class Game {
 
 	    players.add(playerName);
 
-	    inPenaltyBox[howManyPlayers()] = false;
+
 		playerMembers.add(new Player(playerName));
 
 	    System.out.println("They are player number " + howManyPlayers());
@@ -35,7 +33,7 @@ public class Game {
 		System.out.println(getCurrentPlayerName() + " is the current player");
 		System.out.println("They have rolled a " + roll);
 
-		if (inPenaltyBox[currentPlayer]) {
+		if (isInPenaltyBox()) {
 			if (roll % 2 != 0) {
 				gettingOutOfPenaltyBox();
 				movePlayerAndAskQuestion(roll);
@@ -50,6 +48,9 @@ public class Game {
 
 	}
 
+	private boolean isInPenaltyBox() {
+		return getCurrentPlayer().isInPenaltyBox();
+	}
 	private void stadyInPenaltyBox() {
 		System.out.println(getCurrentPlayerName() + " is not getting out of the penalty box");
 		isGettingOutOfPenaltyBox = false;
@@ -93,7 +94,7 @@ public class Game {
 	}
 
 	public boolean wasCorrectlyAnswered() {
-		if (inPenaltyBox[currentPlayer]){
+		if (isInPenaltyBox()){
 			if (isGettingOutOfPenaltyBox) {
 				toNextPlayer();
 				answerCorrectAndIncreaseCoins();
@@ -154,10 +155,8 @@ public class Game {
 	}
 
 	private void setPlayerToPenaltyBox() {
-		System.out.println(getCurrentPlayerName() + " was sent to the penalty box");
-		inPenaltyBox[currentPlayer] = true;
+		getCurrentPlayer().setToPenaltyBox();
 	}
-
 
 	private boolean didPlayerWin() {
 		return !(getCurrentCoins() == 6);
