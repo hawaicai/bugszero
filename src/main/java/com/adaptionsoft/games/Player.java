@@ -53,6 +53,6 @@ public class Player {
     }
 
     public void getOutOfPenaltyBox() {
-
+        inPenaltyBox = false;
     }
 }
