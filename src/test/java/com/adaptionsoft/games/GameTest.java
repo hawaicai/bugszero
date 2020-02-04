@@ -9,6 +9,7 @@ import java.io.PrintStream;
 import java.util.Random;
 import java.util.stream.IntStream;
 
+import static junit.framework.TestCase.assertNull;
 import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -149,6 +150,12 @@ public class GameTest {
         assertEquals("Rock Question 0",decksManager.askQuestion("Rock"));
         assertEquals("Pop Question 1",decksManager.askQuestion("Pop"));
     }
+    @Test
+    public void test_get_question_when_input_invalid_category()
+    {
+        DecksManager decksManager = new DecksManager();
+        assertNull(decksManager.askQuestion("Pop1"));
+    }
 
     @Test
     public void test_get_question_when_input_category_51th()
@@ -158,6 +165,6 @@ public class GameTest {
         {
             decksManager.askQuestion("Pop");
         }
-//        assertEquals("Pop Question 0",decksManager.askQuestion("Pop"));
+        assertEquals("Pop Question 0",decksManager.askQuestion("Pop"));
     }
 }

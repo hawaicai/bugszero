@@ -18,6 +18,9 @@ public class DecksManager {
             sportsQuestions.addLast(("Sports Question " + i));
             rockQuestions.addLast("Rock Question " + i);
         }
+        for (Category category:Category.values()) {
+            decks.put(category.getName(), new Deck(category.getName()));
+        }
     }
 
     protected String currentCategory(int place) {
@@ -27,14 +30,11 @@ public class DecksManager {
     }
 
     public String askQuestion(String category) {
-        if (category == "Pop")
-            return (String) popQuestions.removeFirst();
-        if (category == "Science")
-            return (String) scienceQuestions.removeFirst();
-        if (category == "Sports")
-            return (String) sportsQuestions.removeFirst();
-        if (category == "Rock")
-            return (String) rockQuestions.removeFirst();
-        return "";
+        Deck deck = decks.get(category);
+        if (null == deck)
+        {
+            return null;
+        }
+        return deck.getNextQuestion();
     }
 }
