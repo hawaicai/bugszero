@@ -6,7 +6,6 @@ import java.util.Random;
 public class Game {
 
 	Players playTmp = new Players();
-	ArrayList<Player> players = new ArrayList<Player>();
 	private final DecksManager decksManager = new DecksManager();
     int currentPlayer = 0;
 
@@ -15,14 +14,14 @@ public class Game {
 	}
 
 	public boolean add(String playerName) {
-		players.add(new Player(playerName));
-
+		Player player = new Player(playerName);
+		playTmp.add(player);
 	    System.out.println("They are player number " + howManyPlayers());
 		return true;
 	}
 
 	public int howManyPlayers() {
-		return players.size();
+		return playTmp.howManyPlayers();
 	}
 
 	public void start(Random rand)
@@ -32,18 +31,23 @@ public class Game {
 			System.out.println("There is not enough players!");
 			return;
 		}
-		boolean notAWinner;
+		boolean notAWinner = true;
 		do {
 			roll(rand.nextInt(5) + 1);
-
-			if (rand.nextInt(9) == 7) {
-				wasWrongAnswer();
-			} else {
-				wasCorrectlyAnswered();
+			if (!isInPenaltyBox()) {
+				answer(rand);
+				notAWinner = didPlayerNotWin();
 			}
-			notAWinner = didPlayerNotWin();
 			toNextPlayer();
 		} while (notAWinner);
+	}
+
+	private void answer(Random rand) {
+		if (rand.nextInt(9) == 7) {
+			wasWrongAnswer();
+		} else {
+			wasCorrectlyAnswered();
+		}
 	}
 
 	public void roll(int roll) {
@@ -60,7 +64,6 @@ public class Game {
 		} else {
 			movePlayerAndAskQuestion(roll);
 		}
-
 	}
 
 	private void stadyInPenaltyBox() {
@@ -77,7 +80,7 @@ public class Game {
 	}
 
 	Player getCurrentPlayer() {
-		return players.get(currentPlayer);
+		return playTmp.getCurrentPlayer();
 	}
 
 	private Object getCurrentPlayerName() {
@@ -121,13 +124,13 @@ public class Game {
 	void toNextPlayer() {
 		currentPlayer++;
 		if (currentPlayer == howManyPlayers()) currentPlayer = 0;
+		playTmp.toNextPlayer();
 	}
 
 	public void wasWrongAnswer(){
 		System.out.println("Question was incorrectly answered");
 		System.out.println(getCurrentPlayerName() + " was sent to the penalty box");
 		setToPenaltyBox();
-
 	}
 
 	private void setToPenaltyBox() {

@@ -14,4 +14,12 @@ public class Players {
         currentPlayer++;
         if (currentPlayer == howManyPlayers()) currentPlayer = 0;
     }
+
+    public Player getCurrentPlayer() {
+        return players.get(currentPlayer);
+    }
+
+    public void add(Player playerName) {
+        players.add(playerName);
+    }
 }
