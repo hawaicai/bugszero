@@ -9,7 +9,9 @@ import java.io.PrintStream;
 import java.util.Random;
 import java.util.stream.IntStream;
 
+import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
 public class GameTest {
     private Game game = new Game();
@@ -76,7 +78,44 @@ public class GameTest {
     public void should_get_1_coins_when_answer_correctly()
     {
         game.wasCorrectlyAnswered();
-//        assertEquals(1, game.getCurrentPlayer().getGoldCoins());
+        assertEquals(1, game.getCurrentPlayer().getGoldCoins());
+    }
+
+    @Test
+    public void should_be_winner_when_answer_correctly_6()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            game.wasCorrectlyAnswered();
+            assertTrue(game.didPlayerNotWin());
+        }
+        game.wasCorrectlyAnswered();
+        assertFalse(game.didPlayerNotWin());
+    }
+
+    @Test
+    public void should_in_penalty_box_when_answer_wrong()
+    {
+        game.wasWrongAnswer();
+        assertTrue(game.getCurrentPlayer().isInpenaltyBox());
+    }
+
+    @Test
+    public void should__stady_in_penalty_box_when_roll_2_given_in_penalty_box()
+    {
+        game.wasWrongAnswer();
+        assertTrue(game.getCurrentPlayer().isInpenaltyBox());
+        game.roll(2);
+        assertTrue(game.getCurrentPlayer().isInpenaltyBox());
+    }
+
+    @Test
+    public void should__getting_out_of_penalty_box_when_roll_1_given_in_penalty_box()
+    {
+        game.wasWrongAnswer();
+        assertTrue(game.getCurrentPlayer().isInpenaltyBox());
+        game.roll(1);
+        assertFalse(game.getCurrentPlayer().isInpenaltyBox());
     }
 
 }

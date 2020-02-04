@@ -49,4 +49,8 @@ public class Player {
     public int getPalces() {
         return places;
     }
+
+    public void getOutOfPenaltyBox() {
+        inPenaltyBox = false;
+    }
 }
