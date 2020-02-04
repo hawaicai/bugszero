@@ -1,13 +1,15 @@
 package com.adaptionsoft.games;
 
+import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.Map;
 
 public class DecksManager {
     LinkedList popQuestions = new LinkedList();
     LinkedList scienceQuestions = new LinkedList();
     LinkedList sportsQuestions = new LinkedList();
     LinkedList rockQuestions = new LinkedList();
-
+    private Map<String, Deck> decks = new HashMap<>();
     public DecksManager()
     {
         for (int i = 0; i < 50; i++) {
