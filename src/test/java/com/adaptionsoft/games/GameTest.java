@@ -118,4 +118,46 @@ public class GameTest {
         assertFalse(game.getCurrentPlayer().isInpenaltyBox());
     }
 
+    @Test
+    public void test_askquestion()
+    {
+        String str = "The category is Pop\r\n" +
+                "Pop Question 0\r\n";
+        ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(resultStream));
+        game.askQuestion();
+        assertEquals(str, resultStream.toString());
+    }
+
+    @Test
+    public void test_get_category_when_input_places()
+    {
+        DecksManager decksManager = new DecksManager();
+        assertEquals("Pop",decksManager.currentCategory(0));
+        assertEquals("Science",decksManager.currentCategory(1));
+        assertEquals("Sports",decksManager.currentCategory(2));
+        assertEquals("Rock",decksManager.currentCategory(3));
+    }
+
+    @Test
+    public void test_get_question_when_input_category()
+    {
+        DecksManager decksManager = new DecksManager();
+        assertEquals("Pop Question 0",decksManager.askQuestion("Pop"));
+        assertEquals("Science Question 0",decksManager.askQuestion("Science"));
+        assertEquals("Sports Question 0",decksManager.askQuestion("Sports"));
+        assertEquals("Rock Question 0",decksManager.askQuestion("Rock"));
+        assertEquals("Pop Question 1",decksManager.askQuestion("Pop"));
+    }
+
+    @Test
+    public void test_get_question_when_input_category_51th()
+    {
+        DecksManager decksManager = new DecksManager();
+        for (int i = 0; i <  50; i++)
+        {
+            decksManager.askQuestion("Pop");
+        }
+//        assertEquals("Pop Question 0",decksManager.askQuestion("Pop"));
+    }
 }

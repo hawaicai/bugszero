@@ -70,7 +70,7 @@ public class Game {
 		getCurrentPlayer().forWard(roll);
 	}
 
-	private void askQuestion() {
+	void askQuestion() {
 		String currentCategory = decksManager.currentCategory(getCurrentPlayerPlace());
 		String questions = decksManager.askQuestion(currentCategory);
 		System.out.println("The category is " + currentCategory);
@@ -81,17 +81,13 @@ public class Game {
 		return getCurrentPlayer().getPalces();
 	}
 
-	public boolean wasCorrectlyAnswered() {
+	public void wasCorrectlyAnswered() {
 		if (isInPenaltyBox()){
-				return true;
+				return;
 		}
 		else {
 			System.out.println("Answer was correct!!!!");
 			increasePlayerGoldCoins();
-
-			boolean winner = didPlayerNotWin();
-
-			return winner;
 		}
 	}
 
@@ -104,13 +100,11 @@ public class Game {
 		if (currentPlayer == howManyPlayers()) currentPlayer = 0;
 	}
 
-	public boolean wasWrongAnswer(){
+	public void wasWrongAnswer(){
 		System.out.println("Question was incorrectly answered");
 		System.out.println(getCurrentPlayerName() + " was sent to the penalty box");
 		setToPenaltyBox();
 
-
-		return true;
 	}
 
 	private void setToPenaltyBox() {

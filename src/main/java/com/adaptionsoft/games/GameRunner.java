@@ -21,19 +21,16 @@ public class GameRunner {
 		aGame.add("Pat");
 		aGame.add("Sue");
 
-
 		do {
-
 			aGame.roll(rand.nextInt(5) + 1);
 
 			if (rand.nextInt(9) == 7) {
-				notAWinner = aGame.wasWrongAnswer();
+				aGame.wasWrongAnswer();
 			} else {
-				notAWinner = aGame.wasCorrectlyAnswered();
+				aGame.wasCorrectlyAnswered();
 			}
+			notAWinner = aGame.didPlayerNotWin();
 			aGame.toNextPlayer();
-
-
 		} while (notAWinner);
 	}
 }
