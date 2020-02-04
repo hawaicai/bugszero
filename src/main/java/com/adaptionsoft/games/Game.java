@@ -7,7 +7,6 @@ public class Game {
 	ArrayList<Player> players = new ArrayList<Player>();
 	private final DecksManager decksManager = new DecksManager();
     int currentPlayer = 0;
-    boolean isGettingOutOfPenaltyBox;
 
 	public boolean isPlayable() {
 		return (howManyPlayers() >= 2);
@@ -43,11 +42,9 @@ public class Game {
 
 	private void stadyInPenaltyBox() {
 		System.out.println(getCurrentPlayerName() + " is not getting out of the penalty box");
-		isGettingOutOfPenaltyBox = false;
 	}
 
 	private void gettingOutOfpenaltyBox() {
-		isGettingOutOfPenaltyBox = true;
 		getCurrentPlayer().getOutOfPenaltyBox();
 		System.out.println(getCurrentPlayerName() + " is getting out of the penalty box");
 	}
@@ -86,19 +83,9 @@ public class Game {
 
 	public boolean wasCorrectlyAnswered() {
 		if (isInPenaltyBox()){
-			if (isGettingOutOfPenaltyBox) {
-				System.out.println("Answer was correct!!!!");
-
-				increasePlayerGoldCoins();
-
-				boolean winner = didPlayerNotWin();
-
-				return winner;
-			} else {
-
 				return true;
-			}
-		} else {
+		}
+		else {
 			System.out.println("Answer was correct!!!!");
 			increasePlayerGoldCoins();
 
