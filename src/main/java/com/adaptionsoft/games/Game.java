@@ -1,6 +1,7 @@
 package com.adaptionsoft.games;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Game {
 
@@ -21,6 +22,22 @@ public class Game {
 
 	public int howManyPlayers() {
 		return players.size();
+	}
+
+	public void start(Random rand)
+	{
+		boolean notAWinner;
+		do {
+			roll(rand.nextInt(5) + 1);
+
+			if (rand.nextInt(9) == 7) {
+				wasWrongAnswer();
+			} else {
+				wasCorrectlyAnswered();
+			}
+			notAWinner = didPlayerNotWin();
+			toNextPlayer();
+		} while (notAWinner);
 	}
 
 	public void roll(int roll) {
