@@ -167,4 +167,16 @@ public class GameTest {
         }
         assertEquals("Pop Question 0",decksManager.askQuestion("Pop"));
     }
+    @Test
+    public void should_be_failed_when_only_1_player()
+    {
+        Game aGame = new Game();
+        aGame.add("bob");
+        ByteArrayOutputStream resultStream = new ByteArrayOutputStream();
+        System.setOut(new PrintStream(resultStream));
+
+        aGame.start(new Random());
+
+        assertEquals("There is not enough players!\r\n", resultStream.toString());
+    }
 }

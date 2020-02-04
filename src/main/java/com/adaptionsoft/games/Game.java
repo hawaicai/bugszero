@@ -5,6 +5,7 @@ import java.util.Random;
 
 public class Game {
 
+	Players playTmp = new Players();
 	ArrayList<Player> players = new ArrayList<Player>();
 	private final DecksManager decksManager = new DecksManager();
     int currentPlayer = 0;
@@ -26,6 +27,11 @@ public class Game {
 
 	public void start(Random rand)
 	{
+		if (!isPlayable())
+		{
+			System.out.println("There is not enough players!");
+			return;
+		}
 		boolean notAWinner;
 		do {
 			roll(rand.nextInt(5) + 1);
