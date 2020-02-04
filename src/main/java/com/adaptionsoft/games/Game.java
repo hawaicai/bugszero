@@ -92,10 +92,10 @@ public class Game {
 				increasePlayerGoldCoins();
 
 				boolean winner = didPlayerWin();
-				toNextPlayer();
+
 				return winner;
 			} else {
-				toNextPlayer();
+
 				return true;
 			}
 		} else {
@@ -103,7 +103,6 @@ public class Game {
 			increasePlayerGoldCoins();
 
 			boolean winner = didPlayerWin();
-			toNextPlayer();
 
 			return winner;
 		}
@@ -123,7 +122,7 @@ public class Game {
 		System.out.println(getCurrentPlayerName() + " was sent to the penalty box");
 		setToPenaltyBox();
 
-		toNextPlayer();
+
 		return true;
 	}
 
