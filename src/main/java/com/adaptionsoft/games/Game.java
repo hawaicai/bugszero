@@ -56,7 +56,7 @@ public class Game {
 		return getCurrentPlayer().isInpenaltyBox();
 	}
 
-	private Player getCurrentPlayer() {
+	Player getCurrentPlayer() {
 		return players.get(currentPlayer);
 	}
 
@@ -88,11 +88,11 @@ public class Game {
 		if (isInPenaltyBox()){
 			if (isGettingOutOfPenaltyBox) {
 				System.out.println("Answer was correct!!!!");
-				toNextPlayer();
+
 				increasePlayerGoldCoins();
 
 				boolean winner = didPlayerWin();
-
+				toNextPlayer();
 				return winner;
 			} else {
 				toNextPlayer();
@@ -113,7 +113,7 @@ public class Game {
 		getCurrentPlayer().increasePlayerGoldCoins();
 	}
 
-	private void toNextPlayer() {
+	void toNextPlayer() {
 		currentPlayer++;
 		if (currentPlayer == howManyPlayers()) currentPlayer = 0;
 	}
