@@ -1,27 +1,24 @@
 package com.adaptionsoft.games;
 
-import java.util.ArrayList;
 import java.util.Random;
 
 public class Game {
 
-	Players playTmp = new Players();
+	Players players = new Players();
 	private final DecksManager decksManager = new DecksManager();
-    int currentPlayer = 0;
 
 	public boolean isPlayable() {
 		return (howManyPlayers() >= 2);
 	}
 
 	public boolean add(String playerName) {
-		Player player = new Player(playerName);
-		playTmp.add(player);
+		players.add(playerName);
 	    System.out.println("They are player number " + howManyPlayers());
 		return true;
 	}
 
 	public int howManyPlayers() {
-		return playTmp.howManyPlayers();
+		return players.howManyPlayers();
 	}
 
 	public void start(Random rand)
@@ -80,10 +77,10 @@ public class Game {
 	}
 
 	Player getCurrentPlayer() {
-		return playTmp.getCurrentPlayer();
+		return players.getCurrentPlayer();
 	}
 
-	private Object getCurrentPlayerName() {
+	private String getCurrentPlayerName() {
 		return getCurrentPlayer().getName();
 	}
 
@@ -97,24 +94,16 @@ public class Game {
 	}
 
 	void askQuestion() {
-		String currentCategory = decksManager.currentCategory(getCurrentPlayerPlace());
+		int place = getCurrentPlayer().getPalces();
+		String currentCategory = decksManager.currentCategory(place);
 		String questions = decksManager.askQuestion(currentCategory);
 		System.out.println("The category is " + currentCategory);
 		System.out.println(questions);
 	}
 
-	private int getCurrentPlayerPlace() {
-		return getCurrentPlayer().getPalces();
-	}
-
 	public void wasCorrectlyAnswered() {
-		if (isInPenaltyBox()){
-				return;
-		}
-		else {
-			System.out.println("Answer was correct!!!!");
-			increasePlayerGoldCoins();
-		}
+		System.out.println("Answer was correct!!!!");
+		increasePlayerGoldCoins();
 	}
 
 	private void increasePlayerGoldCoins() {
@@ -122,9 +111,7 @@ public class Game {
 	}
 
 	void toNextPlayer() {
-		currentPlayer++;
-		if (currentPlayer == howManyPlayers()) currentPlayer = 0;
-		playTmp.toNextPlayer();
+		players.toNextPlayer();
 	}
 
 	public void wasWrongAnswer(){
@@ -137,12 +124,8 @@ public class Game {
 		getCurrentPlayer().setToPenaltyBox();
 	}
 
-
 	boolean didPlayerNotWin() {
-		return !(getCurrentCoins() == 6);
+		return !getCurrentPlayer().didPlayerWin();
 	}
 
-	private int getCurrentCoins() {
-		return getCurrentPlayer().getGoldCoins();
-	}
 }

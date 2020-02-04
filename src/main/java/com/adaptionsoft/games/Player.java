@@ -53,4 +53,8 @@ public class Player {
     public void getOutOfPenaltyBox() {
         inPenaltyBox = false;
     }
+
+    boolean didPlayerWin() {
+        return goldCoins == 6;
+    }
 }
